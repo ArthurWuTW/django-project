@@ -25,8 +25,10 @@ SECRET_KEY = '7l!)et38r^-5ujzl=ibnrna$*sb8%y!&tip4c-4#b9#qy=&_+r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+  "0.0.0.0",
+  "10.1.1.16"
+]
 
 # Application definition
 
