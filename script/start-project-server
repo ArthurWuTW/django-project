@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+sudo service postgresql stop
+sudo service postgresql start
 python3 ../manage.py runserver 0.0.0.0:8000
