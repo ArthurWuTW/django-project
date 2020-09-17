@@ -11,7 +11,7 @@ Steps:
 
 --------------postgresql.conf----------------
 ...
-data_directory = '/django_project/data_directory/postgresql/9.5/main'
+data_directory = '<path>/django_project/data_directory/postgresql/9.5/main'
 ...
 ----------------------------------------------
 
