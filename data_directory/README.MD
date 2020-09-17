@@ -2,6 +2,26 @@ Date: Sep 17, 2020
 Purpose:
 * to store the persistent database in this directory
 
+// Recommended
+
+/<path>/django_project/data_directory/postgresql
+has been mapping to /var/lib/postgresql
+in /<path>/docker-script/docker/project/run-container
+
+
+--------------run-container-------------
+...
+DATABASE_OPTS="\
+     --volume $DJANGO_DIR/data_directory/postgresql:/var/lib/postgresql \
+"
+...
+----------------------------------------
+
+
+
+
+// Deprecated
+
 Steps:
 1. Moving the PostgreSQL Data Directory: default data_directory is "/var/lib/postgresql/9.5/main"
 >> sudo rsync -av /var/lib/postgresql /<path>/django-project/data_directory
