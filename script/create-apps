@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+if [ $# -eq 0 ];then
+  echo "-h to see the usage"
+  exit 1
+fi
+
+
+#Install getops dependencies
+
+# output 1 means yet installed
+dpkg-query -l util-linux >/dev/null 2>&1
+if [ $? -eq 1 ]; then
+  sudo apt-get update >/dev/null 2>&1
+  sudo apt-get install -y util-linux >/dev/null 2>&1
+fi 
+
+create_app()
+{
+  cd ..
+  python3 manage.py startapp $1
+}
+
+while getopts "hn:" o;
+do
+  case "$o" in
+    h)
+      echo "create-app"
+      echo ""
+      echo "usage: create-app [arguments]"
+      echo "Arguments:"
+      echo "  -n [fname]    Create django apps with directory named [fname] "
+      echo "  -h            Print Help(this message) and exit"
+      echo ""
+    ;;
+    n)
+      echo "APP_NAME : ${OPTARG}"
+      create_app ${OPTARG}
+    ;;
+    *)
+      echo "-h to see the usage!"
+    ;;
+  esac
+done
+
