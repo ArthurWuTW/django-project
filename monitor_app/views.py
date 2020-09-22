@@ -9,8 +9,9 @@ import json
 # Create your views here.
 def dashboard(request):
 
-    temps = Temperature.objects.all()
-    humids = Humidity.objects.all()
+    time_threshold = datetime.now() - timedelta(hours=5)
+    temps = Temperature.objects.filter(time__lt=(time_threshold + timedelta(hours=8)))
+    humids = Humidity.objects.filter(time__lt=(time_threshold + timedelta(hours=8)))
 
     timezone_hour_offset = 8
 
