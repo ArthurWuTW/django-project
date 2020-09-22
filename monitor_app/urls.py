@@ -14,5 +14,8 @@ urlpatterns = [
         name='temperature'),
     path('humidity/<float:humid>',
         views.humidity,
-        name='humidity')
+        name='humidity'),
+    path('cpuTemperature/<float:cpuTemp>',
+        views.cpuTemperature,
+        name='cpuTemperature')
 ]

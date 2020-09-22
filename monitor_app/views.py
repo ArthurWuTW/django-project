@@ -59,3 +59,13 @@ def humidity(request, humid):
     data.save()
 
     return HttpResponse('')
+
+def cpuTemperature(request, temp):
+    print("temp", temp)
+    data = CpuTemperature()
+    data.cpuTemperature = temp
+    data.time = datetime.now()
+    print(data.cpuTemperature)
+    print(data.time)
+
+    return HttpResponse('')
