@@ -2,10 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
 from .forms import *
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Create your views here.
 def dashboard(request):
+
+    timezone_hour_offset = 8
+
     context = {
     }
     return render(request, 'template_dashboard/dashboard.html', context)
