@@ -17,15 +17,23 @@ def dashboard(request):
     temp_list = list()
     for temp in temps:
         temp_list.append({
-            'timestamp': (temp.time + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M'),
+            'timestamp': (temp.time + timedelta(hours=8)).strftime('%m/%d %H:%M'),
             'temperature': temp.temperature
         })
 
     print(temp_list)
 
+    humid_list = list()
+    for humid in humids:
+        humid_list.append({
+            'timestamp': (humid.time + timedelta(hours=8)).strftime('%m/%d %H:%M'),
+            'humidity': humid.humidity
+        })
+
 
     context = {
-        'temp_list': temp_list
+        'temp_list': temp_list,
+        'humid_list': humid_list
     }
     return render(request, 'template_dashboard/dashboard.html', context)
 

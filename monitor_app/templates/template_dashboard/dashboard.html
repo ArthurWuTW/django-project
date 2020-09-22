@@ -118,12 +118,7 @@
                     <div class="col-lg-7 col-xl-8">
                         <div class="card shadow mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class="text-primary font-weight-bold m-0">TIME PRICE</h6>
-                                <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
-                                        <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a></div>
-                                </div>
+                                <h6 class="text-primary font-weight-bold m-0">Temperature</h6>
                             </div>
                             <div class="card-body">
                                 <div class="chart-area">
@@ -135,33 +130,23 @@
                     <div class="col-lg-5 col-xl-4">
                         <div class="card shadow mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class="text-primary font-weight-bold m-0">Revenue Sources</h6>
-                                <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
-                                        <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a></div>
-                                </div>
+                                <h6 class="text-primary font-weight-bold m-0">Humidity</h6>
+
                             </div>
                             <div class="card-body">
                                 <div class="chart-area">
                                   <canvas id="myChart_1"></canvas>
                                 </div>
-                                <div
-                                    class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-7 col-xl-8">
+                <!-- <div class="col-lg-7 col-xl-8">
                     <div class="card shadow mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">TIME PRICE</h6>
-                            <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
-                                    <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a></div>
-                            </div>
+
                         </div>
                         <div class="card-body">
                             <div class="chart-area">
@@ -169,8 +154,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-5 col-xl-4">
+                </div> -->
+                <!-- <div class="col-lg-5 col-xl-4">
                     <div class="card shadow mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Revenue Sources</h6>
@@ -188,9 +173,9 @@
                                 class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-7 col-xl-8">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -227,7 +212,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     </div>
     </div>
     <footer class="bg-white sticky-footer">
@@ -246,116 +231,136 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     <script>
       var ctx = document.getElementById('myChart').getContext('2d');
-  var chart = new Chart(ctx, {
-    type:'line',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-    options:{
-      maintainAspectRatio:false,
-      legend:{
-        display:false
-      },
-      title:{},
-      scales:{
-        xAxes:[
-          {
-            gridLines:{
-              color:'rgb(234, 236, 244)',
-              zeroLineColor:'rgb(234, 236, 244)',
-              drawBorder:false,
-              drawTicks:false,
-              borderDash:[2],
-              zeroLineBorderDash:[2],
-              drawOnChartArea:false},
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
-            }
+      var chart = new Chart(ctx, {
+        type:'line',
+        data: {
+          labels: [
+            {% for data in temp_list %}
+              "{{ data.timestamp }}",
+            {% endfor %}
           ],
-          yAxes:[
-            {
-              gridLines:{
-                color:'rgb(234, 236, 244)',
-                zeroLineColor:'rgb(234, 236, 244)',
-                drawBorder:false,
-                drawTicks:false,
-                borderDash:[2],
-                zeroLineBorderDash:[2]
-              },
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
+          datasets: [{
+            label: 'Temperature',
+            data: [
+              {% for data in temp_list %}
+                {{ data.temperature }},
+              {% endfor %}
+        ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+            ],
+            borderWidth: 1
+          }]
+        },
+        options:{
+          maintainAspectRatio:false,
+          legend:{
+            display:false
+          },
+          title:{},
+          scales:{
+            xAxes:[
+              {
+                  ticks:{
+                    fontColor:'#858796',
+                    padding:20,
+                    autoSkip: true,
+                    maxTicksLimit: 20,
+                  }
+                }
+              ],
+              yAxes:[
+                {
+                  gridLines:{
+                    color:'rgb(234, 236, 244)',
+                    zeroLineColor:'rgb(234, 236, 244)',
+                    drawBorder:false,
+                    drawTicks:false,
+                    borderDash:[2],
+                    zeroLineBorderDash:[2]
+                  },
+                  ticks:{
+                    fontColor:'#858796',
+                    padding:5,
+                    suggestedMin: 0,
+                    suggestedMax: 45
+                  }
+                }
+              ]
             }
-          ]
-        }
-      }
-    });
+          }
+        });
     </script>
 
     <script>
       var ctx = document.getElementById('myChart_1').getContext('2d');
-  var chart = new Chart(ctx, {
-    type:'line',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-    options:{
-      maintainAspectRatio:false,
-      legend:{
-        display:false
-      },
-      title:{},
-      scales:{
-        xAxes:[
-          {
-            gridLines:{
-              color:'rgb(234, 236, 244)',
-              zeroLineColor:'rgb(234, 236, 244)',
-              drawBorder:false,
-              drawTicks:false,
-              borderDash:[2],
-              zeroLineBorderDash:[2],
-              drawOnChartArea:false},
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
-            }
+      var chart = new Chart(ctx, {
+        type:'line',
+        data: {
+          labels: [
+            {% for data in humid_list %}
+              "{{ data.timestamp }}",
+            {% endfor %}
           ],
-          yAxes:[
-            {
-              gridLines:{
-                color:'rgb(234, 236, 244)',
-                zeroLineColor:'rgb(234, 236, 244)',
-                drawBorder:false,
-                drawTicks:false,
-                borderDash:[2],
-                zeroLineBorderDash:[2]
-              },
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
+          datasets: [{
+            label: 'Humidity',
+            data: [
+              {% for data in humid_list %}
+                {{ data.humidity }},
+              {% endfor %}
+        ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+            ],
+            borderWidth: 1
+          }]
+        },
+        options:{
+          maintainAspectRatio:false,
+          legend:{
+            display:false
+          },
+          title:{},
+          scales:{
+            xAxes:[
+              {
+                  ticks:{
+                    fontColor:'#858796',
+                    padding:20,
+                    autoSkip: true,
+                    maxTicksLimit: 20,
+                  }
+                }
+              ],
+              yAxes:[
+                {
+                  gridLines:{
+                    color:'rgb(234, 236, 244)',
+                    zeroLineColor:'rgb(234, 236, 244)',
+                    drawBorder:false,
+                    drawTicks:false,
+                    borderDash:[2],
+                    zeroLineBorderDash:[2]
+                  },
+                  ticks:{
+                    fontColor:'#858796',
+                    padding:5,
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                  }
+                }
+              ]
             }
-          ]
-        }
-      }
-    });
+          }
+        });
     </script>
 
     <script>
@@ -420,161 +425,63 @@
   var chart = new Chart(ctx, {
     type:'line',
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-    options:{
-      maintainAspectRatio:false,
-      legend:{
-        display:false
-      },
-      title:{},
-      scales:{
-        xAxes:[
-          {
-            gridLines:{
-              color:'rgb(234, 236, 244)',
-              zeroLineColor:'rgb(234, 236, 244)',
-              drawBorder:false,
-              drawTicks:false,
-              borderDash:[2],
-              zeroLineBorderDash:[2],
-              drawOnChartArea:false},
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
-            }
-          ],
-          yAxes:[
-            {
-              gridLines:{
-                color:'rgb(234, 236, 244)',
-                zeroLineColor:'rgb(234, 236, 244)',
-                drawBorder:false,
-                drawTicks:false,
-                borderDash:[2],
-                zeroLineBorderDash:[2]
-              },
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
-            }
-          ]
-        }
-      }
-    });
-    </script>
-
-    <script>
-      var ctx = document.getElementById('myChart_4').getContext('2d');
-  var chart = new Chart(ctx, {
-    type:'line',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-    options:{
-      maintainAspectRatio:false,
-      legend:{
-        display:false
-      },
-      title:{},
-      scales:{
-        xAxes:[
-          {
-            gridLines:{
-              color:'rgb(234, 236, 244)',
-              zeroLineColor:'rgb(234, 236, 244)',
-              drawBorder:false,
-              drawTicks:false,
-              borderDash:[2],
-              zeroLineBorderDash:[2],
-              drawOnChartArea:false},
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
-            }
-          ],
-          yAxes:[
-            {
-              gridLines:{
-                color:'rgb(234, 236, 244)',
-                zeroLineColor:'rgb(234, 236, 244)',
-                drawBorder:false,
-                drawTicks:false,
-                borderDash:[2],
-                zeroLineBorderDash:[2]
-              },
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
-            }
-          ]
-        }
-      }
-    });
-    </script>
-
-    <script>
-    {% for data in temp_list %}
-      console.log("{{ data.timestamp }}");
-    {% endfor %}
-
-
-      var ctx = document.getElementById('myChart_5').getContext('2d');
-      var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [
+      labels: [
+        {% for data in temp_list %}
+          "{{ data.timestamp }}",
+        {% endfor %}
+      ],
+      datasets: [{
+        label: 'Temperature',
+        data: [
           {% for data in temp_list %}
-            new Date("{{ data.timestamp }}").toLocaleString(),
+            {{ data.temperature }},
           {% endfor %}
-        ],
-        datasets: [{
-          label: 'Temperature',
-          data: [
-            {% for data in temp_list %}
-            {
-              t: new Date("{{ data.timestamp }}"),
-              y: {{ data.temperature }}
-            },
-            {% endfor %}
-          ],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
+    ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
 
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-          ],
-          borderWidth: 1
-        }]
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options:{
+      maintainAspectRatio:false,
+      legend:{
+        display:false
       },
-      options: {
-        scales: {
-          xAxes: [{
-            type: 'time'
-          }],
-          yAxes: [{
-            ticks: {
-              suggestedMin: 10,
-              suggestedMax: 45
+      title:{},
+      scales:{
+        xAxes:[
+          {
+              ticks:{
+                fontColor:'#858796',
+                padding:20,
+                autoSkip: true,
+                maxTicksLimit: 20,
+              }
             }
-          }]
+          ],
+          yAxes:[
+            {
+              gridLines:{
+                color:'rgb(234, 236, 244)',
+                zeroLineColor:'rgb(234, 236, 244)',
+                drawBorder:false,
+                drawTicks:false,
+                borderDash:[2],
+                zeroLineBorderDash:[2]
+              },
+              ticks:{
+                fontColor:'#858796',
+                padding:5,
+                suggestedMin: 0,
+                suggestedMax: 45
+              }
+            }
+          ]
         }
       }
     });
