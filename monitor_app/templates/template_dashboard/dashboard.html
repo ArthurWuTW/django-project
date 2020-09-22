@@ -530,57 +530,51 @@
     </script>
 
     <script>
+    {% for data in temp_list %}
+      console.log("{{ data.timestamp }}");
+    {% endfor %}
+
+
       var ctx = document.getElementById('myChart_5').getContext('2d');
-  var chart = new Chart(ctx, {
-    type:'line',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [
+          {% for data in temp_list %}
+            new Date("{{ data.timestamp }}").toLocaleString(),
+          {% endfor %}
+        ],
         datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-    options:{
-      maintainAspectRatio:false,
-      legend:{
-        display:false
-      },
-      title:{},
-      scales:{
-        xAxes:[
-          {
-            gridLines:{
-              color:'rgb(234, 236, 244)',
-              zeroLineColor:'rgb(234, 236, 244)',
-              drawBorder:false,
-              drawTicks:false,
-              borderDash:[2],
-              zeroLineBorderDash:[2],
-              drawOnChartArea:false},
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
-            }
-          ],
-          yAxes:[
+          label: 'Temperature',
+          data: [
+            {% for data in temp_list %}
             {
-              gridLines:{
-                color:'rgb(234, 236, 244)',
-                zeroLineColor:'rgb(234, 236, 244)',
-                drawBorder:false,
-                drawTicks:false,
-                borderDash:[2],
-                zeroLineBorderDash:[2]
-              },
-              ticks:{
-                fontColor:'#858796',
-                padding:20
-              }
+              t: new Date("{{ data.timestamp }}"),
+              y: {{ data.temperature }}
+            },
+            {% endfor %}
+          ],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            type: 'time'
+          }],
+          yAxes: [{
+            ticks: {
+              suggestedMin: 10,
+              suggestedMax: 45
             }
-          ]
+          }]
         }
       }
     });
