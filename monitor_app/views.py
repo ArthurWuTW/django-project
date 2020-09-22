@@ -31,10 +31,16 @@ def dashboard(request):
             'humidity': humid.humidity
         })
 
+    cpu_temp = CpuTemperature.objects.get(id=1)
+    cpu_data = {
+        'timestamp': cpu_temp.time,
+        'temperature': cpu_temp.cpuTemperature
+    }
 
     context = {
         'temp_list': temp_list,
-        'humid_list': humid_list
+        'humid_list': humid_list,
+        'cpu_data': cpu_data
     }
     return render(request, 'template_dashboard/dashboard.html', context)
 
@@ -54,18 +60,15 @@ def humidity(request, humid):
     data = Humidity()
     data.humidity = humid
     data.time = datetime.now()
-    print(data.humidity)
-    print(data.time)
     data.save()
 
     return HttpResponse('')
 
-def cpuTemperature(request, temp):
-    print("temp", temp)
-    data = CpuTemperature()
-    data.cpuTemperature = temp
+def cpuTemperature(request, cpuTemp):
+    print("cpu temp", cpuTemp)
+    data = CpuTemperature.objects.get(id=1)
+    data.cpuTemperature = cpuTemp
     data.time = datetime.now()
-    print(data.cpuTemperature)
-    print(data.time)
+    data.save()
 
     return HttpResponse('')

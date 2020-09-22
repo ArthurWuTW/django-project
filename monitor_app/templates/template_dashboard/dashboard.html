@@ -92,8 +92,8 @@
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
-                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Weather</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>$40,000</span></div>
+                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Pi CPU Temperature</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{ cpu_data.temperature }} 'C</span></div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
                                 </div>
@@ -286,8 +286,8 @@
                   ticks:{
                     fontColor:'#858796',
                     padding:5,
-                    suggestedMin: 0,
-                    suggestedMax: 45
+                    suggestedMin: 10,
+                    suggestedMax: 40
                   }
                 }
               ]
