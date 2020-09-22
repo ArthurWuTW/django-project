@@ -11,5 +11,8 @@ urlpatterns = [
         name='dashboard'),
     path('temperature/<float:temp>',
         views.temperature,
-        name='temperature')
+        name='temperature'),
+    path('humidity/<float:humid>',
+        views.humidity,
+        name='humidity')
 ]

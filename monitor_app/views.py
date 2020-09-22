@@ -20,3 +20,14 @@ def temperature(request, temp):
     data.save()
 
     return HttpResponse('')
+
+def humidity(request, humid):
+    print("humid", humid)
+    data = Humidity()
+    data.humidity = humid
+    data.time = datetime.now()
+    print(data.humidity)
+    print(data.time)
+    data.save()
+
+    return HttpResponse('')
