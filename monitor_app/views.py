@@ -5,13 +5,15 @@ from .forms import *
 from datetime import datetime, timedelta
 from .view_utils import *
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def dashboard(request):
 
-    time_threshold = datetime.now() - timedelta(hours=5)
-    temps = Temperature.objects.filter(time__lt=(time_threshold + timedelta(hours=8)))
-    humids = Humidity.objects.filter(time__lt=(time_threshold + timedelta(hours=8)))
+    time_threshold = datetime.now() - timedelta(hours=8)
+    # gte : greater than equal
+    temps = Temperature.objects.filter(time__gte=(time_threshold))
+    humids = Humidity.objects.filter(time__gte=(time_threshold))
 
     timezone_hour_offset = 8
 
@@ -72,3 +74,34 @@ def cpuTemperature(request, cpuTemp):
     data.save()
 
     return HttpResponse('')
+
+@csrf_exempt
+def receiveImage(request):
+
+    if request.method == 'POST':
+
+        received_data = json.loads(request.body.decode("utf-8"))
+
+        raw_data = received_data['image']
+        print("------------------------")
+        # encoding decoding processing
+        raw_data = raw_data.encode("utf-8")
+        print(raw_data)
+
+        import base64
+        import numpy as np
+        import cv2
+
+        imgString = base64.b64decode(raw_data)
+        np_array = np.fromstring(imgString, np.uint8)
+        print(np_array)
+
+        image = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
+        print(image)
+
+        cv2.imwrite("./abc.jpg", image)
+
+
+        return HttpResponse(str(received_data))
+
+    return HttpResponse('Not post')
