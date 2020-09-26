@@ -21,4 +21,7 @@ urlpatterns = [
     path('receiveImage',
         views.receiveImage,
         name='receiveImage'),
+    path('timePrice/<float:price>/date/<str:date>/product/<str:product>',
+        views.timePrice,
+        name='timePrice'),
 ]

@@ -39,10 +39,20 @@ def dashboard(request):
         'temperature': cpu_temp.cpuTemperature
     }
 
+    latest_timePrice = TimePrice.objects.filter(
+        product = "water_spinach"
+    ).last()
+    time_price_data = {
+        'timestamp': (latest_timePrice.time + timedelta(hours=8)).strftime('%Y/%m/%d'),
+        'price': latest_timePrice.price,
+        'product': latest_timePrice.product
+    }
+
     context = {
         'temp_list': temp_list,
         'humid_list': humid_list,
-        'cpu_data': cpu_data
+        'cpu_data': cpu_data,
+        'time_price': time_price_data
     }
     return render(request, 'template_dashboard/dashboard.html', context)
 
@@ -105,3 +115,12 @@ def receiveImage(request):
         return HttpResponse(str(received_data))
 
     return HttpResponse('Not post')
+
+def timePrice(request, price, date, product):
+    data = TimePrice()
+    data.price = price
+    data.time = datetime.strptime(date, "%Y_%m_%d")
+    data.product = product
+    data.save()
+
+    return HttpResponse('')
