@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Temperature)
 admin.site.register(Humidity)
 admin.site.register(CpuTemperature)
+admin.site.register(TimePrice)
