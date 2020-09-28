@@ -114,16 +114,17 @@ def receiveImage(request):
 
         # growth_data
         growth_data = received_data['data']
+        now = datetime.now()
         for data in growth_data:
             growth_object = GrowthRate()
-            growth_object.time = datetime.now()
+            growth_object.time = now
             growth_object.plant_id = data['id']
             growth_object.rate = data['growth_rate']
             growth_object.save()
 
         django_path = '../'
         image_dir = 'data_image/'
-        image_name = datetime.now().strftime("%Y_%m_%d")+'.jpg'
+        image_name = now.strftime("%Y_%m_%d")+'.jpg'
 
         print(django_path+image_dir+image_name)
 
