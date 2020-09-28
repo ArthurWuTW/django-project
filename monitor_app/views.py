@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from .view_utils import *
 import json
 from django.views.decorators.csrf import csrf_exempt
+import os
 
 # Create your views here.
 def dashboard(request):
@@ -109,8 +110,24 @@ def receiveImage(request):
         image = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
         print(image)
 
-        cv2.imwrite("./abc.jpg", image)
 
+
+        # growth_data
+        growth_data = received_data['data']
+        for data in growth_data:
+            growth_object = GrowthRate()
+            growth_object.time = datetime.now()
+            growth_object.plant_id = data['id']
+            growth_object.rate = data['growth_rate']
+            growth_object.save()
+
+        django_path = '../'
+        image_dir = 'data_image/'
+        image_name = datetime.now().strftime("%Y_%m_%d")+'.jpg'
+
+        print(django_path+image_dir+image_name)
+
+        cv2.imwrite(django_path+image_dir+image_name, image)
 
         return HttpResponse(str(received_data))
 
