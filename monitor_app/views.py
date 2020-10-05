@@ -16,8 +16,6 @@ def dashboard(request):
     temps = Temperature.objects.filter(time__gte=(time_threshold))
     humids = Humidity.objects.filter(time__gte=(time_threshold))
 
-    timezone_hour_offset = 8
-
     temp_list = list()
     for temp in temps:
         temp_list.append({
