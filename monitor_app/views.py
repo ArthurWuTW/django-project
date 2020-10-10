@@ -140,3 +140,24 @@ def timePrice(request, price, date, product):
     data.save()
 
     return HttpResponse('')
+
+def login(request):
+
+    context = {
+
+    }
+    return render(request, 'template_dashboard/login.html', context)
+
+def register(request):
+
+    context = {
+
+    }
+    return render(request, 'template_dashboard/register.html', context)
+
+def forgot_password(request):
+
+    context = {
+
+    }
+    return render(request, 'template_dashboard/forgot_password.html', context)
