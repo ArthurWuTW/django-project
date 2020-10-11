@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login as auth_login
+from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .forms import *
 from datetime import datetime, timedelta
 from .view_utils import *
 import json
-from django.views.decorators.csrf import csrf_exempt
 import os
 
 # Create your views here.
@@ -143,8 +144,24 @@ def timePrice(request, price, date, product):
 
 def login(request):
 
-    context = {
+    if(request.method == 'POST'):
+        username = request.POST.get('email', '')
+        password = request.POST.get('password', '')
+        user = authenticate(request, username=username, password=password)
 
+        if user is not None:
+            auth_login(request, user)
+
+            return redirect('/')
+        else:
+            context = {
+                'login_failed': True
+            }
+            return render(request, 'template_dashboard/login.html', context)
+
+
+    context = {
+        'login_failed': False
     }
     return render(request, 'template_dashboard/login.html', context)
 
