@@ -167,6 +167,23 @@ def login(request):
 
 def register(request):
 
+    if(request.method == 'POST'):
+        email = request.POST.get('email', '')
+        password = request.POST.get('password', '')
+
+        print("adf",email, password)
+
+    # if POST
+    #    email
+    #    username
+    #    password
+    #    if email is registered
+    #         render html with message
+    #    else
+    #         create user
+    #         redirect to login page
+
+
     context = {
 
     }
