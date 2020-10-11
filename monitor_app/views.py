@@ -155,13 +155,13 @@ def login(request):
             return redirect('/')
         else:
             context = {
-                'login_failed': True
+                'status_message': 'Login Failed'
             }
             return render(request, 'template_dashboard/login.html', context)
 
 
     context = {
-        'login_failed': False
+        'status_message': 'Welcome Back'
     }
     return render(request, 'template_dashboard/login.html', context)
 
