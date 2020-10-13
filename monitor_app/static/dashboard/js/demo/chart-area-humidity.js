@@ -1,5 +1,5 @@
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
+var ctx = document.getElementById("chart_humid");
 var chart = new Chart(ctx, {
         type:'line',
         data: {

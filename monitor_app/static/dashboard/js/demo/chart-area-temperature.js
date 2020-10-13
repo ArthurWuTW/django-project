@@ -1,5 +1,5 @@
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart_1");
+var ctx = document.getElementById("chart_temp");
 var chart = new Chart(ctx, {
         type:'line',
         data: {
