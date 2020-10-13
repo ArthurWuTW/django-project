@@ -24,8 +24,13 @@ def dashboard(request):
             'timestamp': (temp.time + timedelta(hours=8)).strftime('%m/%d %H:%M'),
             'temperature': temp.temperature
         })
+    print('temp_list', temp_list)
+    temp_array_dict = dict()
+    temp_array_dict['timestamp_array'] = [d['timestamp'] for d in temp_list]
+    temp_array_dict['temp_array'] = [d['temperature'] for d in temp_list]
 
-    print(temp_list)
+
+    print('temp_array_dict', temp_array_dict)
 
     humid_list = list()
     for humid in humids:
@@ -50,7 +55,7 @@ def dashboard(request):
     }
 
     context = {
-        'temp_list': temp_list,
+        'temp_data': json.dumps(temp_array_dict),
         'humid_list': humid_list,
         'cpu_data': cpu_data,
         'time_price': time_price_data
