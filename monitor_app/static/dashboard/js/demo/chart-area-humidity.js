@@ -5,7 +5,7 @@ var chart = new Chart(ctx, {
         data: {
           labels: humid_data['timestamp_array'],
           datasets: [{
-            label: 'Temperature',
+            label: 'Humidity',
             data: humid_data['humid_array'],
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
