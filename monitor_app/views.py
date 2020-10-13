@@ -18,21 +18,15 @@ def dashboard(request):
     temps = Temperature.objects.filter(time__gte=(time_threshold))
     humids = Humidity.objects.filter(time__gte=(time_threshold))
 
-    temp_list = list()
-    for temp in temps:
-        temp_list.append({
-            'timestamp': (temp.time + timedelta(hours=8)).strftime('%m/%d %H:%M'),
-            'temperature': temp.temperature
-        })
+    temp_array_dict = dict()
+    temp_array_dict['timestamp_array'] = [(temp.time + timedelta(hours=8)).strftime('%m/%d %H:%M') for temp in temps]
+    temp_array_dict['temp_array'] = [temp.temperature for temp in temps]
+    print('temp_array_dict', temp_array_dict)
 
-    print(temp_list)
-
-    humid_list = list()
-    for humid in humids:
-        humid_list.append({
-            'timestamp': (humid.time + timedelta(hours=8)).strftime('%m/%d %H:%M'),
-            'humidity': humid.humidity
-        })
+    humid_array_dict = dict()
+    humid_array_dict['timestamp_array'] = [(humid.time + timedelta(hours=8)).strftime('%m/%d %H:%M') for humid in humids]
+    humid_array_dict['humid_array'] = [humid.humidity for humid in humids]
+    print('humid_array_dict', humid_array_dict)
 
     cpu_temp = CpuTemperature.objects.get(id=1)
     cpu_data = {
@@ -50,8 +44,8 @@ def dashboard(request):
     }
 
     context = {
-        'temp_list': temp_list,
-        'humid_list': humid_list,
+        'temp_data': json.dumps(temp_array_dict),
+        'humid_data': json.dumps(humid_array_dict),
         'cpu_data': cpu_data,
         'time_price': time_price_data
     }
