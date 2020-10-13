@@ -631,8 +631,8 @@
 
   <!-- django data passed to javascript  -->
   <script>
-    var data = JSON.parse("{{temp_data | escapejs}}")
-    console.log(data);
+    var temp_data = JSON.parse("{{temp_data | escapejs}}")
+    console.log(temp_data);
   </script>
 
   <!-- js chart -->
