@@ -9,7 +9,7 @@ urlpatterns = [
     path('',
         views.dashboard,
         name='dashboard'),
-    path('login',
+    path('accounts/login/', # replace auth.accounts.login
         views.login,
         name='login'),
     path('register',

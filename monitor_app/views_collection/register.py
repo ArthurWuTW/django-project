@@ -24,7 +24,7 @@ def register(request):
                                             password=password)
             user.save()
 
-            return redirect('/login')
+            return redirect('accounts/login/')
         else:
             context = {
                 'status_message': 'The email already exists!'
