@@ -9,6 +9,15 @@ urlpatterns = [
     path('',
         views.dashboard,
         name='dashboard'),
+    path('accounts/login/', # replace auth.accounts.login
+        views.login,
+        name='login'),
+    path('register',
+        views.register,
+        name='register'),
+    path('forgot_password',
+        views.forgot_password,
+        name='forgot_password'),
     path('temperature/<float:temp>',
         views.temperature,
         name='temperature'),
@@ -24,4 +33,7 @@ urlpatterns = [
     path('timePrice/<float:price>/date/<str:date>/product/<str:product>',
         views.timePrice,
         name='timePrice'),
+    path('activate/<str:uid>/<str:token>',
+        views.activate,
+        name='activate'),
 ]
