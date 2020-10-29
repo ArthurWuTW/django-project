@@ -1,0 +1,12 @@
+{% autoescape off %}
+
+Hi,
+
+We just need to verify your email address before you can access [customer portal].
+
+Verify your email address {{ protocol }}://{{ domain }}/activate/{{ uid }}/{{ token }}
+
+Sincerely,
+The Website Team
+
+{% endautoescape %}

@@ -33,4 +33,7 @@ urlpatterns = [
     path('timePrice/<float:price>/date/<str:date>/product/<str:product>',
         views.timePrice,
         name='timePrice'),
+    path('activate/<str:uid>/<str:token>',
+        views.activate,
+        name='activate'),
 ]
