@@ -26,14 +26,15 @@ def forgot_password(request):
             if user.exists():
                 subject = "Password Reset Requested"
                 email_template_name = "../templates/password_reset_email_template.txt"
-                c = {  "email":user.email,
-                	   'domain':'10.1.1.16:8000',
-                	   'site_name': 'Website',
-                       "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                	   "user": user,
-                	   'token': default_token_generator.make_token(user),
-                	   'protocol': 'http',
-            		}
+                c = {
+                    "email":user.email,
+                    'domain':'10.1.1.16:8000',
+                    'site_name': 'Website',
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "user": user,
+                    'token': default_token_generator.make_token(user),
+                    'protocol': 'http',
+                }
 
                 #Sending email
                 content = MIMEMultipart()
