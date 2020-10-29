@@ -40,7 +40,7 @@ def register(request):
 
             # send verification email
             # -----
-            subject = "Password Reset Requested"
+            subject = "Activate Account"
             email_template_name = "../templates/activation_email_template.txt"
             c = {
                 "email":user.email,
