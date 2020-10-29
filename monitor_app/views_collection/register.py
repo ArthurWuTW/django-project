@@ -70,8 +70,10 @@ def register(request):
                 except Exception as e:
                     print("Error message: ", e)
 
-
-            return redirect('accounts/login/')
+            context = {
+                'status_message': "Please click on the that has just been sent to your email account to verify your email and continue the registration process."
+            }
+            return render(request, 'template_dashboard/message_template.html', context)
         else:
             context = {
                 'status_message': 'The email already exists!'
