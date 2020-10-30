@@ -1,3 +1,2 @@
-#TODO add system check
-
-# 1. auth group include only Author and Viewer
+# run AppConfig.ready()
+default_app_config = 'monitor_app.apps.MonitorAppConfig'
