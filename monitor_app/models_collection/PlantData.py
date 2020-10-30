@@ -8,6 +8,7 @@ class PlantData(models.Model):
                               blank=True,
                               default=None)
     seed_date = models.DateTimeField(null=True)
+    date = models.DateTimeField(null=True)
     status = models.CharField(max_length=100, null=True)
 
     def __str__(self):
