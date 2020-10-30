@@ -11,5 +11,5 @@ for f in models_collection:
 """\
 admin.site.register({0})\
 """.format(f[:-3])
-    print(import_script)
+    # print(import_script)
     exec (import_script)
