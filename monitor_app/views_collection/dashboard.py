@@ -35,7 +35,7 @@ def dashboard(request):
     }
 
     # plant data
-    plantsData = PlantData.objects.filter(date__gte = datetime.now() - timedelta(days=5))
+    plantsData = PlantData.objects.filter(date__gte = datetime.now() - timedelta(days=5)).order_by('aruco_id')
     plant_array = list()
     for plant in plantsData:
         plant_array.append({
