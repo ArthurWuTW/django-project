@@ -34,7 +34,26 @@ def dashboard(request):
         'product': latest_timePrice.product
     }
 
+    # plant data
+    plantsData = PlantData.objects.filter(date__gte = datetime.now() - timedelta(days=5))
+    plant_array = list()
+    for plant in plantsData:
+        plant_array.append({
+            'Id': plant.aruco_id,
+            'Image': plant.image_url,
+            'Type': plant.type,
+            'Date': (plant.date + timedelta(hours=8)).strftime('%m/%d'),
+            'Seed Date': (plant.seed_date + timedelta(hours=8)).strftime('%m/%d'),
+            'Status': plant.status,
+            'Growth_rate': plant.growth_rate
+        })
+    plants_data = dict()
+    plants_data['plants'] = plant_array
+
+    print(plants_data)
+
     context = {
+        'plants_data': json.dumps(plants_data),
         'temp_data': json.dumps(temp_array_dict),
         'humid_data': json.dumps(humid_array_dict),
         'cpu_data': cpu_data,
