@@ -12,7 +12,7 @@ class PlantData(models.Model):
     status = models.CharField(max_length=100, null=True)
 
     def __str__(self):
-        return str(self.aruco_id)
+        return str(self.image_url)
 
     class Meta:
         verbose_name_plural = 'PlantData'
