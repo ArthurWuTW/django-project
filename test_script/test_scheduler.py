@@ -5,12 +5,10 @@ import time
 
 def job1():
     print("I'm working for job1")
-    time.sleep(2)
     print("job1:", datetime.datetime.now())
 
 def job2():
     print("I'm working for job2")
-    time.sleep(2)
     print("job2:", datetime.datetime.now())
 
 def job1_task():
@@ -21,7 +19,7 @@ def job2_task():
 
 def run():
     schedule.every(10).seconds.do(job1_task)
-    schedule.every(10).seconds.do(job1_task)
+    schedule.every(10).seconds.do(job2_task)
 
     while True:
         schedule.run_pending()
