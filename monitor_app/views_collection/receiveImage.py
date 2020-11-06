@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import *
-from datetime import datetime
+from datetime import datetime, date
 import json
 
 @csrf_exempt
@@ -39,8 +39,8 @@ def receiveImage(request):
         plant_data.image_url = image_name
         plant_data.type = "N/A"
         plant_data.growth_rate = 0.0
-        plant_data.seed_date = datetime.strptime('2020-10-29 08:15:27.243860', '%Y-%m-%d %H:%M:%S.%f')
-        plant_data.date = datetime.now()
+        plant_data.seed_date = datetime.strptime('2020-10-29', '%Y-%m-%d').date()
+        plant_data.data_date = date.today()
         plant_data.status = "N/A"
         plant_data.save()
 
