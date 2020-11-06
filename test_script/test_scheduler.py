@@ -3,27 +3,15 @@ import schedule
 import threading
 import time
 
-def job1():
-    print("I'm working for job1")
-    print("job1:", datetime.datetime.now())
-
-def job2():
-    print("I'm working for job2")
-    print("job2:", datetime.datetime.now())
-
-def job1_task():
-    threading.Thread(target=job1).start()
-
-def job2_task():
-    threading.Thread(target=job2).start()
-
-def run():
-    schedule.every(10).seconds.do(job1_task)
-    schedule.every(10).seconds.do(job2_task)
-
+import threading
+import time
+def job():
     while True:
-        schedule.run_pending()
-        time.sleep(1)
+        print(time.ctime())
+        time.sleep(5)
 
 if __name__ == '__main__':
-    run()
+
+    t = threading.Thread(target = job)
+    t.start()
+    print("hey")
