@@ -12,7 +12,6 @@ def receiveImage(request):
         received_data = json.loads(request.body.decode("utf-8"))
 
         raw_data = received_data['image']
-        print("------------------------")
         # encoding decoding processing
         raw_data = raw_data.encode("utf-8")
         print(raw_data)
@@ -29,15 +28,10 @@ def receiveImage(request):
         print(image)
 
         now = datetime.now()
-
         django_path = '../'
         image_dir = 'data_image/'
         image_name = now.strftime("%Y_%m_%d_")+str(received_data['id'])+'.jpg'
-
-        print(django_path+image_dir+image_name)
-
         cv2.imwrite(django_path+image_dir+image_name, image)
-
 
         # plant data
         plant_data = PlantData()

@@ -38,8 +38,3 @@ if __name__ == '__main__':
     os.system(command)
     # print(command)
     os.system("git log --all --oneline --decorate --graph")
-
-
-
-
-    # Commit with date-time

@@ -39,7 +39,6 @@ def dashboard(request):
     # Every time you use it, you should properly escape any parameters that
     # the user can control by using params in order to protect against SQL injection attacks.
     # Please read more about SQL injection protection.
-    print("=============================")
     sql_command = '\
     SELECT * FROM monitor_app_plantdata \
     WHERE data_date IN (SELECT max(data_date) FROM monitor_app_plantdata) \
@@ -58,8 +57,6 @@ def dashboard(request):
         })
     plants_data = dict()
     plants_data['plants'] = plant_array
-
-    # print(plants_data)
 
     context = {
         'plants_data': json.dumps(plants_data),
