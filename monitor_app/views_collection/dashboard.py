@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from ..models import *
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import json
 
 def dashboard(request):
@@ -34,23 +34,32 @@ def dashboard(request):
         'product': latest_timePrice.product
     }
 
-    # plant data
-    plantsData = PlantData.objects.filter(date__gte = datetime.now() - timedelta(days=5)).order_by('aruco_id')
+    # WARNING
+    # You should be very careful whenever you write raw SQL.
+    # Every time you use it, you should properly escape any parameters that
+    # the user can control by using params in order to protect against SQL injection attacks.
+    # Please read more about SQL injection protection.
+    print("=============================")
+    sql_command = '\
+    SELECT * FROM monitor_app_plantdata \
+    WHERE data_date IN (SELECT max(data_date) FROM monitor_app_plantdata) \
+    ORDER BY aruco_id ASC; \
+    '
     plant_array = list()
-    for plant in plantsData:
+    for plant in PlantData.objects.raw(sql_command):
         plant_array.append({
             'Id': plant.aruco_id,
             'Image': plant.image_url,
             'Type': plant.type,
-            'Date': (plant.date + timedelta(hours=8)).strftime('%m/%d'),
-            'Seed Date': (plant.seed_date + timedelta(hours=8)).strftime('%m/%d'),
+            'Data Date': plant.data_date.strftime('%m/%d'),
+            'Seed Date': plant.seed_date.strftime('%m/%d'),
             'Status': plant.status,
             'Growth_rate': plant.growth_rate
         })
     plants_data = dict()
     plants_data['plants'] = plant_array
 
-    print(plants_data)
+    # print(plants_data)
 
     context = {
         'plants_data': json.dumps(plants_data),
