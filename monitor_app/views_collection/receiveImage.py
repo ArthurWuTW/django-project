@@ -28,17 +28,7 @@ def receiveImage(request):
         image = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
         print(image)
 
-
-
-        # growth_data
-        # growth_data = received_data['data']
         now = datetime.now()
-        # for data in growth_data:
-        #     growth_object = GrowthRate()
-        #     growth_object.time = now
-        #     growth_object.plant_id = data['id']
-        #     growth_object.rate = data['growth_rate']
-        #     growth_object.save()
 
         django_path = '../'
         image_dir = 'data_image/'
@@ -47,6 +37,18 @@ def receiveImage(request):
         print(django_path+image_dir+image_name)
 
         cv2.imwrite(django_path+image_dir+image_name, image)
+
+
+        # plant data
+        plant_data = PlantData()
+        plant_data.aruco_id = received_data['id']
+        plant_data.image_url = image_name
+        plant_data.type = "N/A"
+        plant_data.growth_rate = 0.0
+        plant_data.seed_date = datetime.strptime('2020-10-29 08:15:27.243860', '%Y-%m-%d %H:%M:%S.%f')
+        plant_data.date = datetime.now()
+        plant_data.status = "N/A"
+        plant_data.save()
 
         return HttpResponse(str(received_data))
 
