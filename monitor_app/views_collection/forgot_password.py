@@ -16,15 +16,16 @@ from secure_data.secure_data_loader import SecureDataLoader
 
 def forgot_password(request):
 
-    if request.user.is_authenticated:
+    if not request.user.is_authenticated:
 
         if(request.method == 'POST'):
             email = request.POST.get('email', '')
             print("email", email)
             associated_users = User.objects.filter(email=email)
             print("associated_user", associated_users)
-            for user in associated_users:
-                if user.exists():
+            if associated_users.exists():
+                for user in associated_users:
+                
                     subject = "Password Reset Requested"
                     email_template_name = "../templates/password_reset_email_template.txt"
                     c = {
@@ -55,10 +56,15 @@ def forgot_password(request):
                         except Exception as e:
                             print("Error message: ", e)
 
-        context = {
-            'status_message': "Please click on the that has just been sent to your email account to change your password."
-        }
-        return render(request, 'template_dashboard/message_template.html', context)
+            context = {
+                'status_message': "Please click on the that has just been sent to your email account to change your password."
+            }
+            return render(request, 'template_dashboard/message_template.html', context)
+        else:
+            context = {
+
+            }
+            return render(request, 'template_dashboard/forgot_password.html', context)
     else:
         context = {
             'status_message': "You have already logged in."
