@@ -301,27 +301,28 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {% if not request.user.is_authuenticated %}
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Account</span>
+                {% if request.user.is_authenticated %}
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ request.user }}</span>
                 <img class="img-profile rounded-circle" src="{% static "dashboard/img/account_icon.png" %}">
                 {% else %}
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ request.user }}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Account</span>
                 <img class="img-profile rounded-circle" src="{% static "dashboard/img/account_icon.png" %}">
                 {% endif %}
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                {% if not request.user.is_authuenticated %}
-                <a class="dropdown-item" href="/accounts/login/">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Login
-                </a>
-                {% else %}
+                {% if request.user.is_authenticated %}
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
+                {% else %}
+                <a class="dropdown-item" href="/accounts/login/">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Login
+                </a>
                 {% endif %}
+
               </div>
             </li>
 

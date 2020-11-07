@@ -4,6 +4,8 @@ from datetime import datetime, timedelta, date
 import json
 
 def dashboard(request):
+
+    print('request.user.is_authenticated()', request.user.is_authenticated)
     time_threshold = datetime.now() - timedelta(hours=8)
     # gte : greater than equal
     temps = Temperature.objects.filter(time__gte=(time_threshold))
