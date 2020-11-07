@@ -12,6 +12,9 @@ urlpatterns = [
     path('accounts/login/', # replace auth.accounts.login
         views.login,
         name='login'),
+    path('accounts/logout/',
+        views.logout,
+        name='logout'),
     path('register',
         views.register,
         name='register'),
