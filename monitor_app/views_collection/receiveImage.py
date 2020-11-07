@@ -34,15 +34,16 @@ def receiveImage(request):
         cv2.imwrite(django_path+image_dir+image_name, image)
 
         # plant data
-        plant_data = PlantData()
-        plant_data.aruco_id = received_data['id']
-        plant_data.image_url = image_name
-        plant_data.type = "N/A"
-        plant_data.growth_rate = 0.0
-        plant_data.seed_date = datetime.strptime('2020-10-29', '%Y-%m-%d').date()
-        plant_data.data_date = date.today()
-        plant_data.status = "N/A"
-        plant_data.save()
+        if(PlantData.objects.filter(image_url=image_name).exists() == False):
+            plant_data = PlantData()
+            plant_data.aruco_id = received_data['id']
+            plant_data.image_url = image_name
+            plant_data.type = "N/A"
+            plant_data.growth_rate = 0.0
+            plant_data.seed_date = datetime.strptime('2020-10-29', '%Y-%m-%d').date()
+            plant_data.data_date = date.today()
+            plant_data.status = "N/A"
+            plant_data.save()
 
         return HttpResponse(str(received_data))
 
