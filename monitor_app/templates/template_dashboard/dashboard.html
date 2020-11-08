@@ -514,6 +514,21 @@
     </div>
   </div>
 
+
+  <div class="modal fade" role="dialog" id="joes">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src="" id="modal-img" height="100%" width="100%" alt="">
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <!-- django data passed to javascript  -->
   <script>
     var temp_data = JSON.parse("{{temp_data | escapejs}}")
@@ -543,6 +558,7 @@
   <script src={% static "dashboard/js/demo/chart-area-temperature.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-pie-demo.js" %}></script>
   <script src={% static "dashboard/js/demo/plant-table.js" %}></script>
+  <script src={% static "dashboard/js/demo/click-image.js" %}></script>
 </body>
 
 </html>

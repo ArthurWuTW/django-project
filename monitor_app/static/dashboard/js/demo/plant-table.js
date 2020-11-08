@@ -19,12 +19,18 @@ function generateTable(table, data) {
     for (key in element) {
       if(key=="Image"){
         let cell = row.insertCell();
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
 
         var img = document.createElement('img');
         img.src = path+element[key];
         img.style.width = "30%";
-        img.style.height = "30%"
-        cell.appendChild(img);
+        img.style.height = "30%";
+        img.setAttribute("onclick","function()");
+
+        a.appendChild(img)
+
+        cell.appendChild(a);
 
         // <img src={% static "2020jav_10_29_1.jpg" %} width="70%" height="70%">
       }
