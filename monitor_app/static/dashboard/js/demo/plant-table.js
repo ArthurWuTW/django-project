@@ -24,8 +24,8 @@ function generateTable(table, data) {
 
         var img = document.createElement('img');
         img.src = path+element[key];
-        img.style.width = "30%";
-        img.style.height = "30%";
+        img.style.width = "15%";
+        img.style.height = "15%";
         img.setAttribute("onclick","function()");
 
         a.appendChild(img)
