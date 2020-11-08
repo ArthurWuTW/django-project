@@ -27,6 +27,7 @@ function generateTable(table, data) {
         img.style.width = "15%";
         img.style.height = "15%";
         img.setAttribute("onclick","function()");
+        img.setAttribute("id", "plant-img");
 
         a.appendChild(img)
 

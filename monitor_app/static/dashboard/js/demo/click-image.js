@@ -1,4 +1,4 @@
-$("img").click(function(){
+$(document).on("click", "#plant-img", function(){
   var src = $(this).attr('src')
   // alert(src);
   $("#modal-img").attr('src',src);
