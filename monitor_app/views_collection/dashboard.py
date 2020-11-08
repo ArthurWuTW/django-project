@@ -2,8 +2,24 @@ from django.shortcuts import render
 from ..models import *
 from datetime import datetime, timedelta, date
 import json
+from django.contrib.auth.models import User
+
+def convertTimeDeltaToDayHourMinString(delta_time):
+
+    day_str = str(delta_time.days)+"d " if delta_time.days is not 0 else ""
+    hour_str = str(delta_time.seconds//3600)+"h " if delta_time.seconds//3600 is not 0 else ""
+    min_str = str((delta_time.seconds//60)%60)+"m " if (delta_time.seconds//60)%60 is not 0 else ""
+    is_just_now = True if delta_time.days is 0 and (delta_time.seconds//60)%60 is 0 else False
+
+    return_str = ""
+    if(is_just_now):
+        return "In a minute"
+    else:
+        return day_str+hour_str+min_str+"ago"
 
 def dashboard(request):
+
+    now = datetime.now()
 
     print('request.user.is_authenticated()', request.user.is_authenticated)
     time_threshold = datetime.now() - timedelta(hours=8)
@@ -60,7 +76,33 @@ def dashboard(request):
     plants_data = dict()
     plants_data['plants'] = plant_array
 
+    # Message center
+    message = list()
+    if(request.user.is_authenticated):
+        current_user = User.objects.get(username = request.user.username)
+        print(current_user)
+        profile = Profile.objects.get(user = current_user)
+        print(profile.activated)
+        if(profile.activated):
+            log_msg = MessageLog.objects.filter(user = current_user)
+            print(log_msg)
+            for log in log_msg:
+                time_delta = now - log.time.replace(tzinfo=None)
+                print(log.time)
+                message.append({
+                    'delta_time': convertTimeDeltaToDayHourMinString(time_delta),
+                    'title': log.title,
+                    'log': log.log,
+                    'read': log.read
+                })
+
+    print(message)
+    messagelog_data = dict()
+    messagelog_data['messagelog_array'] = message
+    messagelog_data['red_message_number'] = len(message)
+
     context = {
+        'messagelog_data': json.dumps(messagelog_data),
         'plants_data': json.dumps(plants_data),
         'temp_data': json.dumps(temp_array_dict),
         'humid_data': json.dumps(humid_array_dict),
