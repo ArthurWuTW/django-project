@@ -135,7 +135,7 @@
 
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" onclick="clickCount()" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 <!-- <span class="badge badge-danger badge-counter">3+</span> -->
@@ -538,6 +538,7 @@
     var table_data = JSON.parse("{{plants_data | escapejs}}")
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}")
     table_data['path'] = '{% static "" %}'
+    var click_msgbell_count = 0
   </script>
 
   <!-- js chart -->
@@ -564,6 +565,7 @@
   <script src={% static "dashboard/js/demo/click-image.js" %}></script>
   <script src={% static "dashboard/js/demo/message-center.js" %}></script>
   <script src={% static "dashboard/js/demo/new-red-message-number.js" %}></script>
+  <script src={% static "dashboard/js/demo/msgCenter-bell-img-click-count.js" %}></script>
 </body>
 
 </html>
