@@ -533,12 +533,13 @@
 
   <!-- django data passed to javascript  -->
   <script>
-    var temp_data = JSON.parse("{{temp_data | escapejs}}")
-    var humid_data = JSON.parse("{{humid_data | escapejs}}")
-    var table_data = JSON.parse("{{plants_data | escapejs}}")
-    var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}")
-    table_data['path'] = '{% static "" %}'
-    var click_msgbell_count = 0
+    var temp_data = JSON.parse("{{temp_data | escapejs}}");
+    var humid_data = JSON.parse("{{humid_data | escapejs}}");
+    var table_data = JSON.parse("{{plants_data | escapejs}}");
+    var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
+    table_data['path'] = '{% static "" %}';
+    messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
+    var click_msgbell_count = 0;
   </script>
 
   <!-- js chart -->
