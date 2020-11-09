@@ -63,10 +63,10 @@ function clickCount(){
       msgCenter.appendChild(a);
     }
 
-    // ajax pass read value back to django
-    for(let data of messagelog_data['messagelog_array']){
-      data['read'] = true;
-    }
+    // // ajax pass read value back to django
+    // for(let data of messagelog_data['messagelog_array']){
+    //   data['read'] = true;
+    // }
   }
   else if(click_msgbell_count >1){
     $.ajax({
