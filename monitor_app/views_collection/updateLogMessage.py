@@ -17,8 +17,9 @@ def convertTimeDeltaToDayHourMinString(delta_time):
     else:
         return day_str+hour_str+min_str+"ago"
 
+@csrf_exempt
 def updateLogMessage(request):
-
+    unread_log_msg_num = int(request.POST.get('unread_num'))
     # Description: When call this view from ajax,
     # Filter out all unread messages and update to "read",
     # And render the code piece to respond ajax,

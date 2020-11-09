@@ -69,10 +69,12 @@ function clickCount(){
     // }
   }
   else if(click_msgbell_count >1){
+    console.log("unread_red_message_number")
+    console.log(messagelog_data['unread_red_message_number'])
     $.ajax({
-      type: "GET",
+      type: "POST",
       url: messagelog_data['update_message_path'],
-      data: {'data': []},
+      data: {'unread_num': messagelog_data['unread_red_message_number']},
     }).done(function(respose){
       $("#messageCenter").html(respose);
     })
