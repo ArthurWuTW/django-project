@@ -39,4 +39,7 @@ urlpatterns = [
     path('activate/<str:uid>/<str:token>',
         views.activate,
         name='activate'),
+    path('updateLogMessage',
+        views.updateLogMessage,
+        name='updateLogMessage'),
 ]
