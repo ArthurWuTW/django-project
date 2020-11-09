@@ -26,7 +26,7 @@ def updateLogMessage(request):
     # And then replace new html
     messagelog_data = list()
     now = datetime.now()
-    messagelog_list = MessageLog.objects.filter(time__lte=now)
+    messagelog_list = MessageLog.objects.filter(time__lte=now).order_by('-time')[:unread_log_msg_num+5]
     for log in messagelog_list:
         time_delta = now - log.time.replace(tzinfo=None)
         messagelog_data.append({

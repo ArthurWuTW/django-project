@@ -86,7 +86,7 @@ def dashboard(request):
         print(profile.activated)
         if(profile.activated):
             unread_log_msg_num = len(MessageLog.objects.filter(user = current_user, read=False))
-            log_msg = MessageLog.objects.filter(user = current_user).order_by('time')[:unread_log_msg_num+3]
+            log_msg = MessageLog.objects.filter(user = current_user).order_by('-time')[:unread_log_msg_num+5]
             print(log_msg)
             for log in log_msg:
                 time_delta = now - log.time.replace(tzinfo=None)
@@ -98,7 +98,8 @@ def dashboard(request):
                     'read': log.read
                 })
     messagelog_data = dict()
-    messagelog_data['red_message_number'] = unread_log_msg_num
+    print("unread_log_msg_num", unread_log_msg_num)
+    messagelog_data['unread_red_message_number'] = unread_log_msg_num
     messagelog_data['messagelog_array'] = message
 
 
