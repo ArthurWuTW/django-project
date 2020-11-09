@@ -1,0 +1,18 @@
+{% load static %}
+{% load bootstrap4 %}
+<h6 class="dropdown-header">
+  Alerts Center
+</h6>
+{% for messagelog in messagelog_data %}
+<a class="dropdown-item d-flex align-items-center" href="#">
+  <div class="mr-3">
+    <div class="icon-circle bg-primary">
+      <i class="fas fa-file-alt text-white"></i>
+    </div>
+  </div>
+  <div>
+    <div class="small text-gray-500">{{ messagelog.delta_time }}</div>
+    {{ messagelog.log }}
+  </div>
+</a>
+{% endfor %}

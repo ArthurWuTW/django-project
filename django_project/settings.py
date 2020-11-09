@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 from secure_data.secure_data_loader import SecureDataLoader
 secure_data_loader = SecureDataLoader()
-print(secure_data_loader.secure_data)
+# print(secure_data_loader.secure_data)
 SECRET_KEY = secure_data_loader.secure_data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'Lion_j6ej04xj/6',
+        'USER': secure_data_loader.secure_data["DATABASE_USER"],
+        'PASSWORD': secure_data_loader.secure_data["DATABASE_PASSWORD"],
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Taipei'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
@@ -129,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "data_image")
+]
+print("STATICFILES_DIRS", STATICFILES_DIRS)

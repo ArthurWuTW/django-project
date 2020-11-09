@@ -6,5 +6,5 @@ for f in views_collection:
 """\
 from .{0}.{1} import *\
 """.format("views_collection", basename(f[:-3]).replace('/', '.'))
-    print(import_script)
+    # print(import_script)
     exec (import_script)

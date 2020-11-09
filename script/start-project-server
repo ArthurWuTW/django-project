@@ -2,4 +2,5 @@
 ./make-migrations-and-migrate
 sudo service postgresql stop
 sudo service postgresql start
+python3 ../backup_thread.py &
 python3 ../manage.py runserver 0.0.0.0:8000

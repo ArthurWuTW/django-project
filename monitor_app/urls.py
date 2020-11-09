@@ -12,6 +12,9 @@ urlpatterns = [
     path('accounts/login/', # replace auth.accounts.login
         views.login,
         name='login'),
+    path('accounts/logout/',
+        views.logout,
+        name='logout'),
     path('register',
         views.register,
         name='register'),
@@ -36,4 +39,10 @@ urlpatterns = [
     path('activate/<str:uid>/<str:token>',
         views.activate,
         name='activate'),
+    path('updateLogMessage',
+        views.updateLogMessage,
+        name='updateLogMessage'),
+    path('writeLogMessage/<str:title>/<str:msg>',
+        views.writeLogMessage,
+        name='writeLogMessage'),
 ]
