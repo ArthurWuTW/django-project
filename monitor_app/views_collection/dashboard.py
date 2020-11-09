@@ -78,13 +78,15 @@ def dashboard(request):
 
     # Message center
     message = list()
+    unread_log_msg_num = 0
     if(request.user.is_authenticated):
         current_user = User.objects.get(username = request.user.username)
         print(current_user)
         profile = Profile.objects.get(user = current_user)
         print(profile.activated)
         if(profile.activated):
-            log_msg = MessageLog.objects.filter(user = current_user)
+            unread_log_msg_num = len(MessageLog.objects.filter(user = current_user, read=False))
+            log_msg = MessageLog.objects.filter(user = current_user).order_by('time')[:unread_log_msg_num+3]
             print(log_msg)
             for log in log_msg:
                 time_delta = now - log.time.replace(tzinfo=None)
@@ -95,11 +97,10 @@ def dashboard(request):
                     'log': log.log,
                     'read': log.read
                 })
-
-    print(message)
     messagelog_data = dict()
+    messagelog_data['red_message_number'] = unread_log_msg_num
     messagelog_data['messagelog_array'] = message
-    messagelog_data['red_message_number'] = len(message)
+
 
     context = {
         'messagelog_data': json.dumps(messagelog_data),
