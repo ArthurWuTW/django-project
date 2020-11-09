@@ -10,10 +10,11 @@ def writeLogMessage(request, title, msg):
     profiles = Profile.objects.filter(permission=group)
     print(group)
     print(profiles)
+    now = datetime.now()
     for profile in profiles:
         message = MessageLog()
         message.user = profile.user
-        message.time = datetime.now()
+        message.time = now
         message.title = title
         message.log = msg
         message.read = False
