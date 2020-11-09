@@ -34,7 +34,7 @@ def updateLogMessage(request):
             'log': log.log
         })
 
-    # MessageLog.filter(time__lte=now).update(read=True)
+    MessageLog.objects.filter(time__lte=now).update(read=True)
 
 
     context = {
