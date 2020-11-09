@@ -94,6 +94,7 @@ def dashboard(request):
                 message.append({
                     'delta_time': convertTimeDeltaToDayHourMinString(time_delta),
                     'title': log.title,
+                    'type': log.type,
                     'log': log.log,
                     'read': log.read
                 })

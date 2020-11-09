@@ -32,7 +32,8 @@ def updateLogMessage(request):
         messagelog_data.append({
             'delta_time': convertTimeDeltaToDayHourMinString(time_delta),
             'title': log.title,
-            'log': log.log
+            'log': log.log,
+            'type': log.type,
         })
 
     MessageLog.objects.filter(time__lte=now).update(read=True)

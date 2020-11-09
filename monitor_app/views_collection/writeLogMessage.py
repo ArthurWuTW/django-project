@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 import json
 from datetime import datetime, timedelta
 
-def writeLogMessage(request, title, msg):
+def writeLogMessage(request, title, msg, type):
     group = AuthGroup.objects.get(group="Author")
     profiles = Profile.objects.filter(permission=group)
     print(group)
@@ -18,6 +18,7 @@ def writeLogMessage(request, title, msg):
         message.title = title
         message.log = msg
         message.read = False
+        message.type = type
         message.save()
 
     return HttpResponse('succeed')

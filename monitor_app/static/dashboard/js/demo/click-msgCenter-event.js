@@ -32,11 +32,20 @@ function clickCount(){
       div1.setAttribute("class", "mr-3");
 
       let div2 = document.createElement("div");
-      div2.setAttribute("class", "icon-circle bg-primary");
+      if(data['type']=="LOG"){
+        div2.setAttribute("class", "icon-circle bg-primary");
+        let i = document.createElement("i");
+        i.setAttribute("class", "fas fa-file-alt text-white");
+        div2.appendChild(i);
+      }
+      else if(data['type']=="WARNING"){
+        div2.setAttribute("class", "icon-circle bg-warning");
+        let i = document.createElement("i");
+        i.setAttribute("class", "fas fa-exclamation-triangle text-white");
+        div2.appendChild(i);
+      }
 
-      let i = document.createElement("i");
-      i.setAttribute("class", "fas fa-file-alt text-white");
-      div2.appendChild(i);
+
       div1.appendChild(div2);
       a.appendChild(div1);
 

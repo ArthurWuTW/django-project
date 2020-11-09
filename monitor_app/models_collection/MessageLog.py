@@ -7,6 +7,7 @@ class MessageLog(models.Model):
                              on_delete=models.CASCADE,
                              default="")
     time = models.DateTimeField()
+    type = models.CharField(max_length=25, default="")
     title = models.CharField(max_length=25)
     log = models.CharField(max_length=100)
     read = models.BooleanField(default=False)
