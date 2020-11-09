@@ -69,11 +69,10 @@ function clickCount(){
     }
   }
   else if(click_msgbell_count >1){
-    var csrftoken = $("[name=csrfmiddlewaretoken]").val();
     $.ajax({
-      type: 'POST',
+      type: "GET",
       url: messagelog_data['update_message_path'],
-      data: {'data': JSON.stringify(messagelog_data)},
+      data: {'data': []},
     }).done(function(respose){
       $("#messageCenter").html(respose);
     })
