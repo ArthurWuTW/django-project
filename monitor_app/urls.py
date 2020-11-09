@@ -42,4 +42,7 @@ urlpatterns = [
     path('updateLogMessage',
         views.updateLogMessage,
         name='updateLogMessage'),
+    path('writeLogMessage/<str:title>/<str:msg>',
+        views.writeLogMessage,
+        name='writeLogMessage'),
 ]
