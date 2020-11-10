@@ -10,7 +10,7 @@ function clickCount(){
     msgCenterNav.removeChild(unreadCountSpan);
   }
 
-  if(click_msgbell_count == 1){
+  if(click_msgbell_count <= 1){
     // show unread message board
     let h6 = document.createElement("h6");
     h6.setAttribute("class", "dropdown-header");
