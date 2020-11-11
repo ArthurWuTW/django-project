@@ -103,6 +103,33 @@ def dashboard(request):
     messagelog_data['unread_red_message_number'] = unread_log_msg_num
     messagelog_data['messagelog_array'] = message
 
+    #Status data
+    pi_cpu_temperature = TaskStatus.objects.get(task_name="PI CPU TEMPERATURE")
+    watering_status = TaskStatus.objects.get(task_name="WATERING STATUS")
+    camera_task = TaskStatus.objects.get(task_name="CAMERA TASK")
+    warning_count = TaskStatus.objects.get(task_name="WARNING COUNT")
+
+    pi_cpu_temperature_data = {
+        'title': pi_cpu_temperature.task_name,
+        'status': pi_cpu_temperature.status
+    }
+    watering_status_data = {
+        'title': watering_status.task_name,
+        'status': watering_status.status
+    }
+    camera_task_data = {
+        'title': camera_task.task_name,
+        'status': camera_task.status
+    }
+    warning_count_data = {
+        'title': warning_count.task_name,
+        'status': warning_count.status
+    }
+    print("~~~~")
+    print(pi_cpu_temperature_data)
+    print(watering_status_data)
+    print(camera_task_data)
+    print(warning_count_data)
 
     context = {
         'messagelog_data': json.dumps(messagelog_data),
@@ -110,6 +137,10 @@ def dashboard(request):
         'temp_data': json.dumps(temp_array_dict),
         'humid_data': json.dumps(humid_array_dict),
         'cpu_data': cpu_data,
-        'time_price': time_price_data
+        'time_price': time_price_data,
+        'pi_cpu_temperature_data': pi_cpu_temperature_data,
+        'watering_status_data': watering_status_data,
+        'camera_task_data': camera_task_data,
+        'warning_count_data': warning_count_data
     }
     return render(request, 'template_dashboard/dashboard.html', context)
