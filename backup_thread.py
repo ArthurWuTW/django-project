@@ -21,7 +21,7 @@ def job():
         print(colored(print_str, 'yellow', attrs=['bold']))
         time.sleep(60*60)
 
-        if(count_hours == 24):
+        if(count_hours == 3):
             # Do Backup
             print(colored('[BACKUP LOG] Backup process starts', 'yellow', attrs=['bold']))
             os.system('python3 ../backup_git.py')
