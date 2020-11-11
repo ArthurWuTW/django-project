@@ -17,6 +17,11 @@ def convertTimeDeltaToDayHourMinString(delta_time):
     else:
         return day_str+hour_str+min_str+"ago"
 
+def countWarningMessage():
+    task = TaskStatus.objects.get(task_name="WARNING COUNT")
+    task.status = str(int(task.status)+1)
+    task.save()
+
 @csrf_exempt
 def updateLogMessage(request):
     unread_log_msg_num = int(request.POST.get('unread_num'))
@@ -35,6 +40,10 @@ def updateLogMessage(request):
             'log': log.log,
             'type': log.type,
         })
+
+        # update warning count
+        if(log.type=="WARNING"):
+            countWarningMessage()
 
     MessageLog.objects.filter(time__lte=now).update(read=True)
 
