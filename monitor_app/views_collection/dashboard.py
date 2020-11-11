@@ -37,21 +37,6 @@ def dashboard(request):
     humid_array_dict['humid_array'] = [humid.humidity for humid in humids]
     print('humid_array_dict', humid_array_dict)
 
-    cpu_temp = CpuTemperature.objects.get(id=1)
-    cpu_data = {
-        'timestamp': cpu_temp.time,
-        'temperature': cpu_temp.cpuTemperature
-    }
-
-    latest_timePrice = TimePrice.objects.filter(
-        product = "water_spinach"
-    ).last()
-    time_price_data = {
-        'timestamp': (latest_timePrice.time + timedelta(hours=8)).strftime('%Y/%m/%d'),
-        'price': latest_timePrice.price,
-        'product': latest_timePrice.product
-    }
-
     # WARNING
     # You should be very careful whenever you write raw SQL.
     # Every time you use it, you should properly escape any parameters that
@@ -136,8 +121,6 @@ def dashboard(request):
         'plants_data': json.dumps(plants_data),
         'temp_data': json.dumps(temp_array_dict),
         'humid_data': json.dumps(humid_array_dict),
-        'cpu_data': cpu_data,
-        'time_price': time_price_data,
         'pi_cpu_temperature_data': pi_cpu_temperature_data,
         'watering_status_data': watering_status_data,
         'camera_task_data': camera_task_data,
