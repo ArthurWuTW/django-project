@@ -51,5 +51,8 @@ urlpatterns = [
     path('updateWateringStatus/<str:status>',
         views.updateWateringStatus,
         name='updateWateringStatus'),
+    path('tables',
+        views.tables,
+        name='tables'),
 
 ]
