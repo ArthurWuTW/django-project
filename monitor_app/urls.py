@@ -45,4 +45,17 @@ urlpatterns = [
     path('writeLogMessage/<str:title>/<str:msg>/<str:type>',
         views.writeLogMessage,
         name='writeLogMessage'),
+    path('updateCameraTask/<str:status>',
+        views.updateCameraTask,
+        name='updateCameraTask'),
+    path('updatePiCpuTemperature/<str:status>',
+        views.updatePiCpuTemperature,
+        name='updatePiCpuTemperature'),
+    path('updateWarningCount/<str:status>',
+        views.updateWarningCount,
+        name='updateWarningCount'),
+    path('updateWateringStatus/<str:status>',
+        views.updateWateringStatus,
+        name='updateWateringStatus'),
+
 ]
