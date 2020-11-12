@@ -3,6 +3,7 @@ from ..models import *
 from datetime import datetime, timedelta, date
 import json
 from django.contrib.auth.models import User
+from django.db import connection
 
 def convertTimeDeltaToDayHourMinString(delta_time):
 
@@ -42,24 +43,27 @@ def tables(request):
     # Every time you use it, you should properly escape any parameters that
     # the user can control by using params in order to protect against SQL injection attacks.
     # Please read more about SQL injection protection.
-    sql_command = '\
-    SELECT * FROM monitor_app_plantdata \
-    WHERE data_date IN (SELECT max(data_date) FROM monitor_app_plantdata) \
-    ORDER BY aruco_id ASC; \
-    '
-    plant_array = list()
-    for plant in PlantData.objects.raw(sql_command):
-        plant_array.append({
-            'Id': plant.aruco_id,
-            'Image': plant.image_url,
-            'Type': plant.type,
-            'Data Date': plant.data_date.strftime('%m/%d'),
-            'Seed Date': plant.seed_date.strftime('%m/%d'),
-            'Status': plant.status,
-            'Growth_rate': plant.growth_rate
-        })
+    plant_table_title_list = list()
+    plant_table_row_list = list()
+    plant_table_title_list.append("")
+    with connection.cursor() as cursor:
+        cursor.execute("select distinct data_date from monitor_app_plantdata order by data_date")
+        dates = cursor.fetchall()
+        for date in dates:
+            plant_table_title_list.append(date[0].strftime('%m/%d'))
+        print(plant_table_title_list)
+
+        cursor.execute("select distinct aruco_id from monitor_app_plantdata order by aruco_id")
+        aruco_ids = cursor.fetchall()
+
+        for aruco_id in aruco_ids:
+            cursor.execute("select image_url from monitor_app_plantdata where aruco_id=%s order by data_date", [aruco_id[0]])
+            image_urls = cursor.fetchall()
+            image_urls = [url[0] for url in image_urls]
+            image_urls.insert(0, str(aruco_id[0]))
+            plant_table_row_list.append(image_urls)
     plants_data = dict()
-    plants_data['plants'] = plant_array
+    # plants_data['plants'] = plant_array
 
     # Message center
     message = list()
@@ -111,6 +115,9 @@ def tables(request):
         'status': warning_count.status
     }
     context = {
+        'plant_table': json.dumps({
+                                    'title': plant_table_title_list,
+                                    'data': plant_table_row_list}),
         'messagelog_data': json.dumps(messagelog_data),
         'plants_data': json.dumps(plants_data),
         'temp_data': json.dumps(temp_array_dict),
@@ -120,4 +127,5 @@ def tables(request):
         'camera_task_data': camera_task_data,
         'warning_count_data': warning_count_data
     }
+    print(context)
     return render(request, 'template_dashboard/tables.html', context)

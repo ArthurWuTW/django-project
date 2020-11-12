@@ -294,9 +294,7 @@
 
   <!-- django data passed to javascript  -->
   <script>
-    var temp_data = JSON.parse("{{temp_data | escapejs}}");
-    var humid_data = JSON.parse("{{humid_data | escapejs}}");
-    var table_data = JSON.parse("{{plants_data | escapejs}}");
+    var table_data = JSON.parse("{{plant_table | escapejs}}");
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
     table_data['path'] = '{% static "" %}';
     messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
@@ -320,10 +318,7 @@
   <script src={% static "dashboard/vendor/chart.js/Chart.min.js" %}></script>
 
   <!-- Page level custom scripts -->
-  <script src={% static "dashboard/js/demo/chart-area-humidity.js" %}></script>
-  <script src={% static "dashboard/js/demo/chart-area-temperature.js" %}></script>
-  <script src={% static "dashboard/js/demo/chart-pie-demo.js" %}></script>
-  <script src={% static "dashboard/js/demo/plant-table.js" %}></script>
+  <script src={% static "dashboard/js/demo/plant-table-all-image.js" %}></script>
   <script src={% static "dashboard/js/demo/click-image.js" %}></script>
   <script src={% static "dashboard/js/demo/new-red-message-number.js" %}></script>
   <script src={% static "dashboard/js/demo/click-msgCenter-event.js" %}></script>
