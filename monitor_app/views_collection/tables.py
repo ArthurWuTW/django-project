@@ -22,22 +22,6 @@ def tables(request):
 
     now = datetime.now()
 
-    print('request.user.is_authenticated()', request.user.is_authenticated)
-    time_threshold = datetime.now() - timedelta(hours=8)
-    # gte : greater than equal
-    temps = Temperature.objects.filter(time__gte=(time_threshold))
-    humids = Humidity.objects.filter(time__gte=(time_threshold))
-
-    temp_array_dict = dict()
-    temp_array_dict['timestamp_array'] = [(temp.time + timedelta(hours=8)).strftime('%m/%d %H:%M') for temp in temps]
-    temp_array_dict['temp_array'] = [temp.temperature for temp in temps]
-    print('temp_array_dict', temp_array_dict)
-
-    humid_array_dict = dict()
-    humid_array_dict['timestamp_array'] = [(humid.time + timedelta(hours=8)).strftime('%m/%d %H:%M') for humid in humids]
-    humid_array_dict['humid_array'] = [humid.humidity for humid in humids]
-    print('humid_array_dict', humid_array_dict)
-
     # WARNING
     # You should be very careful whenever you write raw SQL.
     # Every time you use it, you should properly escape any parameters that
@@ -62,8 +46,6 @@ def tables(request):
             image_urls = [url[0] for url in image_urls]
             image_urls.insert(0, str(aruco_id[0]))
             plant_table_row_list.append(image_urls)
-    plants_data = dict()
-    # plants_data['plants'] = plant_array
 
     # Message center
     message = list()
@@ -87,45 +69,16 @@ def tables(request):
                     'log': log.log,
                     'read': log.read
                 })
+
     messagelog_data = dict()
     print("unread_log_msg_num", unread_log_msg_num)
     messagelog_data['unread_red_message_number'] = unread_log_msg_num
     messagelog_data['messagelog_array'] = message
 
-    #Status data
-    pi_cpu_temperature = TaskStatus.objects.get(task_name="PI CPU TEMPERATURE")
-    watering_status = TaskStatus.objects.get(task_name="WATERING STATUS")
-    camera_task = TaskStatus.objects.get(task_name="CAMERA TASK")
-    warning_count = TaskStatus.objects.get(task_name="WARNING COUNT")
-
-    pi_cpu_temperature_data = {
-        'title': pi_cpu_temperature.task_name,
-        'status': pi_cpu_temperature.status
-    }
-    watering_status_data = {
-        'title': watering_status.task_name,
-        'status': watering_status.status
-    }
-    camera_task_data = {
-        'title': camera_task.task_name,
-        'status': camera_task.status
-    }
-    warning_count_data = {
-        'title': warning_count.task_name,
-        'status': warning_count.status
-    }
     context = {
         'plant_table': json.dumps({
                                     'title': plant_table_title_list,
                                     'data': plant_table_row_list}),
         'messagelog_data': json.dumps(messagelog_data),
-        'plants_data': json.dumps(plants_data),
-        'temp_data': json.dumps(temp_array_dict),
-        'humid_data': json.dumps(humid_array_dict),
-        'pi_cpu_temperature_data': pi_cpu_temperature_data,
-        'watering_status_data': watering_status_data,
-        'camera_task_data': camera_task_data,
-        'warning_count_data': warning_count_data
     }
-    print(context)
     return render(request, 'template_dashboard/tables.html', context)

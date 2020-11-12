@@ -1,6 +1,4 @@
 let path = table_data['path'];
-console.log(table_data)
-
 function generateTableHead(table, data) {
   let thead = table.createTHead();
   let row = thead.insertRow();
@@ -13,9 +11,7 @@ function generateTableHead(table, data) {
 }
 
 function generateTable(table, data) {
-  console.log(data)
   for(let element of data){
-    console.log(element)
     // insert First element space
     let row = table.insertRow();
     let cell = row.insertCell();

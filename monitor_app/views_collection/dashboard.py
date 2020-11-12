@@ -110,12 +110,7 @@ def dashboard(request):
         'title': warning_count.task_name,
         'status': warning_count.status
     }
-    print("~~~~")
-    print(pi_cpu_temperature_data)
-    print(watering_status_data)
-    print(camera_task_data)
-    print(warning_count_data)
-
+    
     context = {
         'messagelog_data': json.dumps(messagelog_data),
         'plants_data': json.dumps(plants_data),
