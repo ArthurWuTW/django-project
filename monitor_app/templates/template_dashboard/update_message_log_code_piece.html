@@ -6,9 +6,15 @@
 {% for messagelog in messagelog_data %}
 <a class="dropdown-item d-flex align-items-center" href="#">
   <div class="mr-3">
+    {% if messagelog.type == "LOG" %}
     <div class="icon-circle bg-primary">
       <i class="fas fa-file-alt text-white"></i>
     </div>
+    {% elif messagelog.type == "WARNING" %}
+    <div class="icon-circle bg-warning">
+      <i class="fas fa-exclamation-triangle text-white"></i>
+    </div>
+    {% endif %}
   </div>
   <div>
     <div class="small text-gray-500">{{ messagelog.delta_time }}</div>

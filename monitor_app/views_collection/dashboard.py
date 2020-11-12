@@ -37,21 +37,6 @@ def dashboard(request):
     humid_array_dict['humid_array'] = [humid.humidity for humid in humids]
     print('humid_array_dict', humid_array_dict)
 
-    cpu_temp = CpuTemperature.objects.get(id=1)
-    cpu_data = {
-        'timestamp': cpu_temp.time,
-        'temperature': cpu_temp.cpuTemperature
-    }
-
-    latest_timePrice = TimePrice.objects.filter(
-        product = "water_spinach"
-    ).last()
-    time_price_data = {
-        'timestamp': (latest_timePrice.time + timedelta(hours=8)).strftime('%Y/%m/%d'),
-        'price': latest_timePrice.price,
-        'product': latest_timePrice.product
-    }
-
     # WARNING
     # You should be very careful whenever you write raw SQL.
     # Every time you use it, you should properly escape any parameters that
@@ -94,6 +79,7 @@ def dashboard(request):
                 message.append({
                     'delta_time': convertTimeDeltaToDayHourMinString(time_delta),
                     'title': log.title,
+                    'type': log.type,
                     'log': log.log,
                     'read': log.read
                 })
@@ -102,13 +88,37 @@ def dashboard(request):
     messagelog_data['unread_red_message_number'] = unread_log_msg_num
     messagelog_data['messagelog_array'] = message
 
+    #Status data
+    pi_cpu_temperature = TaskStatus.objects.get(task_name="PI CPU TEMPERATURE")
+    watering_status = TaskStatus.objects.get(task_name="WATERING STATUS")
+    camera_task = TaskStatus.objects.get(task_name="CAMERA TASK")
+    warning_count = TaskStatus.objects.get(task_name="WARNING COUNT")
 
+    pi_cpu_temperature_data = {
+        'title': pi_cpu_temperature.task_name,
+        'status': pi_cpu_temperature.status
+    }
+    watering_status_data = {
+        'title': watering_status.task_name,
+        'status': watering_status.status
+    }
+    camera_task_data = {
+        'title': camera_task.task_name,
+        'status': camera_task.status
+    }
+    warning_count_data = {
+        'title': warning_count.task_name,
+        'status': warning_count.status
+    }
+    
     context = {
         'messagelog_data': json.dumps(messagelog_data),
         'plants_data': json.dumps(plants_data),
         'temp_data': json.dumps(temp_array_dict),
         'humid_data': json.dumps(humid_array_dict),
-        'cpu_data': cpu_data,
-        'time_price': time_price_data
+        'pi_cpu_temperature_data': pi_cpu_temperature_data,
+        'watering_status_data': watering_status_data,
+        'camera_task_data': camera_task_data,
+        'warning_count_data': warning_count_data
     }
     return render(request, 'template_dashboard/dashboard.html', context)

@@ -16,7 +16,7 @@ def convertTimeDeltaToDayHourMinString(delta_time):
         return "In a minute"
     else:
         return day_str+hour_str+min_str+"ago"
-
+        
 @csrf_exempt
 def updateLogMessage(request):
     unread_log_msg_num = int(request.POST.get('unread_num'))
@@ -32,7 +32,8 @@ def updateLogMessage(request):
         messagelog_data.append({
             'delta_time': convertTimeDeltaToDayHourMinString(time_delta),
             'title': log.title,
-            'log': log.log
+            'log': log.log,
+            'type': log.type,
         })
 
     MessageLog.objects.filter(time__lte=now).update(read=True)
