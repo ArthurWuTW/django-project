@@ -19,7 +19,7 @@ urlpatterns = [
         views.register,
         name='register'),
     path('forgot_password',
-        views.forgot_password,
+        views.ForgotPassword.as_view(),
         name='forgot_password'),
     path('temperature/<float:temp>',
         views.TemperatureReceiver.as_view(),

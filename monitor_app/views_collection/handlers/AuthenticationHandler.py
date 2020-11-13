@@ -15,6 +15,8 @@ class AuthenticationHandler(ModelDataHandler):
     def __init__(self):
         self.status = None
         self.login_flag = False
+        self.user_exits = False
+        self.user_object_queryset_list = None
     def activate(self, request, uid, token):
         uid = force_text(urlsafe_base64_decode(uid))
         try:
@@ -43,6 +45,13 @@ class AuthenticationHandler(ModelDataHandler):
     def logout(self, request):
         auth_logout(request)
         self.login_flag = False
+    def forgot_password(self, request):
+        email = request.POST.get('email', '')
+        print("email", email)
+        self.user_object_queryset_list = User.objects.filter(email=email)
+        print("associated_user", self.user_object_queryset_list)
+    def getForgotPwdUserObjectList(self):
+        return self.user_object_queryset_list
     def getData(self):
         return self.status
     def getTitle(self):
