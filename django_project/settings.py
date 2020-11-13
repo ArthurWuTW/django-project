@@ -29,8 +29,7 @@ SECRET_KEY = secure_data_loader.secure_data['SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  "0.0.0.0",
-  "10.1.1.16"
+  secure_data_loader.secure_data['ALLOWED_HOSTS']
 ]
 
 # Application definition
