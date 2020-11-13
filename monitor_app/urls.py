@@ -10,7 +10,7 @@ urlpatterns = [
         views.Dashboard.as_view(),
         name='dashboard'),
     path('accounts/login/', # replace auth.accounts.login
-        views.login,
+        views.Login.as_view(),
         name='login'),
     path('accounts/logout/',
         views.logout,
