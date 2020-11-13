@@ -31,7 +31,7 @@ urlpatterns = [
         views.receiveImage,
         name='receiveImage'),
     path('activate/<str:uid>/<str:token>',
-        views.activate,
+        views.Activate.as_view(),
         name='activate'),
     path('updateLogMessage',
         views.updateLogMessage,
