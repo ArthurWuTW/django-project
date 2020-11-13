@@ -25,12 +25,12 @@ def forgot_password(request):
             print("associated_user", associated_users)
             if associated_users.exists():
                 for user in associated_users:
-                
+
                     subject = "Password Reset Requested"
                     email_template_name = "../templates/password_reset_email_template.txt"
                     c = {
                         "email":user.email,
-                        'domain':'10.1.1.16:8000',
+                        'domain':secure_data_loader.secure_data['DOMAIN'],
                         'site_name': 'Website',
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         "user": user,

@@ -44,7 +44,7 @@ def register(request):
             email_template_name = "../templates/activation_email_template.txt"
             c = {
                 "email":user.email,
-                'domain':'10.1.1.16:8000',
+                'domain':secure_data_loader.secure_data['DOMAIN'],
                 'site_name': 'Website',
                 "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                 "user": user,
