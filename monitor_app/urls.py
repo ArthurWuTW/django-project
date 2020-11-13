@@ -52,7 +52,7 @@ urlpatterns = [
         views.updateWateringStatus,
         name='updateWateringStatus'),
     path('tables',
-        views.tables,
+        views.Tables.as_view(),
         name='tables'),
 
 ]
