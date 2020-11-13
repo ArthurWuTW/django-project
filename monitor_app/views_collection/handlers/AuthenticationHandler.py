@@ -9,6 +9,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout as auth_logout
 
 class AuthenticationHandler(ModelDataHandler):
     def __init__(self):
@@ -39,6 +40,9 @@ class AuthenticationHandler(ModelDataHandler):
         else:
             self.login_flag = False
             self.status = 'Login Failed'
+    def logout(self, request):
+        auth_logout(request)
+        self.login_flag = False
     def getData(self):
         return self.status
     def getTitle(self):

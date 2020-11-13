@@ -13,7 +13,7 @@ urlpatterns = [
         views.Login.as_view(),
         name='login'),
     path('accounts/logout/',
-        views.logout,
+        views.Logout.as_view(),
         name='logout'),
     path('register',
         views.register,
