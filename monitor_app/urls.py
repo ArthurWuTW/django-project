@@ -22,7 +22,7 @@ urlpatterns = [
         views.forgot_password,
         name='forgot_password'),
     path('temperature/<float:temp>',
-        views.temperature,
+        views.TemperatureReceiver.as_view(),
         name='temperature'),
     path('humidity/<float:humid>',
         views.HumidityReceiver.as_view(),

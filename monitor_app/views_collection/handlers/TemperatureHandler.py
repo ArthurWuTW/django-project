@@ -23,3 +23,10 @@ class TemperatureHandler(ModelDataHandler):
         return json.dumps(data)
     def getTitle(self): #override
         return 'temp_data'
+    def insertData(self, temp):
+        print("temp", temp)
+        data = Temperature()
+        data.temperature = temp
+        data.time = datetime.now()
+        data.save()
+        return 'succeed'
