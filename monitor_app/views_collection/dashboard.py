@@ -186,40 +186,40 @@ class ContextHandler():
     def getContext(self):
         return self.context
 
+from django.views import View
+class Dashboard(View):
 
+    def get(self, request):
+        now = datetime.now()
+        threshold_timestamp = now - timedelta(hours=8)
 
-def dashboard(request):
+        tempHandler = TemperatureHandler()
+        tempHandler.setTimezoneShift(timedelta(hours=8))
+        tempHandler.setThresholdTimestamp(threshold_timestamp)
 
-    now = datetime.now()
-    threshold_timestamp = now - timedelta(hours=8)
+        humidHandler = HumidityHandler()
+        humidHandler.setTimezoneShift(timedelta(hours=8))
+        humidHandler.setThresholdTimestamp(threshold_timestamp)
 
-    tempHandler = TemperatureHandler()
-    tempHandler.setTimezoneShift(timedelta(hours=8))
-    tempHandler.setThresholdTimestamp(threshold_timestamp)
+        planthandler = PlantDataHandler()
 
-    humidHandler = HumidityHandler()
-    humidHandler.setTimezoneShift(timedelta(hours=8))
-    humidHandler.setThresholdTimestamp(threshold_timestamp)
+        messageHandler = MessageCenterHandler(self.request)
+        messageHandler.setNow(now)
 
-    planthandler = PlantDataHandler()
+        piCpuTempHander = PiCpuTempStatusHander()
+        wateringStatusHandler = WateringStatusHander()
+        cameraSatausHander = CameraTaskStatusHander()
+        warningStatusHandler = WarningStatusHander()
 
-    messageHandler = MessageCenterHandler(request)
-    messageHandler.setNow(now)
+        contextHandler = ContextHandler()
+        contextHandler.join(tempHandler)
+        contextHandler.join(humidHandler)
+        contextHandler.join(planthandler)
+        contextHandler.join(messageHandler)
+        contextHandler.join(piCpuTempHander)
+        contextHandler.join(wateringStatusHandler)
+        contextHandler.join(cameraSatausHander)
+        contextHandler.join(warningStatusHandler)
+        contextHandler.fillInContext()
 
-    piCpuTempHander = PiCpuTempStatusHander()
-    wateringStatusHandler = WateringStatusHander()
-    cameraSatausHander = CameraTaskStatusHander()
-    warningStatusHandler = WarningStatusHander()
-
-    contextHandler = ContextHandler()
-    contextHandler.join(tempHandler)
-    contextHandler.join(humidHandler)
-    contextHandler.join(planthandler)
-    contextHandler.join(messageHandler)
-    contextHandler.join(piCpuTempHander)
-    contextHandler.join(wateringStatusHandler)
-    contextHandler.join(cameraSatausHander)
-    contextHandler.join(warningStatusHandler)
-    contextHandler.fillInContext()
-
-    return render(request, 'template_dashboard/dashboard.html', contextHandler.getContext())
+        return render(self.request, 'template_dashboard/dashboard.html', contextHandler.getContext())

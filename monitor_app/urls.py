@@ -7,7 +7,7 @@ register_converter(converters.FloatConverter, 'float')
 
 urlpatterns = [
     path('',
-        views.dashboard,
+        views.Dashboard.as_view(),
         name='dashboard'),
     path('accounts/login/', # replace auth.accounts.login
         views.login,
