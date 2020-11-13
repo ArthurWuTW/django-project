@@ -23,3 +23,10 @@ class HumidityHandler(ModelDataHandler):
         return json.dumps(data)
     def getTitle(self): #override
         return 'humid_data'
+    def insertData(self, humid):
+        print("humid", humid)
+        data = Humidity()
+        data.humidity = humid
+        data.time = datetime.now()
+        data.save()
+        return 'succeed'

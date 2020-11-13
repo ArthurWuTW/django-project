@@ -25,7 +25,7 @@ urlpatterns = [
         views.temperature,
         name='temperature'),
     path('humidity/<float:humid>',
-        views.humidity,
+        views.HumidityReceiver.as_view(),
         name='humidity'),
     path('receiveImage',
         views.receiveImage,
