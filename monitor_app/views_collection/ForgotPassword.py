@@ -50,15 +50,15 @@ class ForgotPassword(View):
                     'protocol': 'http',
                 })
                 sender.sendMail(secure_data_loader.secure_data['SMTP_ACCOUNT'], secure_data_loader.secure_data['SMTP_PASSWORD'])
-                context = {
-                    'status_message': "Please click on the that has just been sent to your email account to change your password."
-                }
-                return render(request, 'template_dashboard/message_template.html', context)
+                authHandler.updateStatus("Please click on the that has just been sent to your email account to change your password.")
+
+                contextHandler = ContextHandler()
+                contextHandler.join(authHandler)
+                contextHandler.fillInContext()
+                return render(request, 'template_dashboard/message_template.html', contextHandler.getContext())
     def get(self, request):
         if not request.user.is_authenticated:
-            context = {
-
-            }
+            context = {}
             return render(request, 'template_dashboard/forgot_password.html', context)
         else:
             context = {
