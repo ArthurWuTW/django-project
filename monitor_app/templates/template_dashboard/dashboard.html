@@ -524,6 +524,10 @@
     </div>
 
   </div>
+  {% csrf_token %}
+  <script>
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  </script>
 
   <!-- django data passed to javascript  -->
   <script>

@@ -292,6 +292,11 @@
 
   </div>
 
+  {% csrf_token %}
+  <script>
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  </script>
+
   <!-- django data passed to javascript  -->
   <script>
     var table_data = JSON.parse("{{plant_table | escapejs}}");
