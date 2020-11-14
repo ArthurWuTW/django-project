@@ -28,7 +28,7 @@ urlpatterns = [
         views.HumidityReceiver.as_view(),
         name='humidity'),
     path('receiveImage',
-        views.receiveImage,
+        views.ReceiveImage.as_view(),
         name='receiveImage'),
     path('activate/<str:uid>/<str:token>',
         views.Activate.as_view(),
