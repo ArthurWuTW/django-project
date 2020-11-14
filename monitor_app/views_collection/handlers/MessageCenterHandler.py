@@ -51,3 +51,26 @@ class MessageCenterHandler(ModelDataHandler):
         return json.dumps(messagelog_data)
     def getTitle(self):
         return 'messagelog_data'
+    def createAuthorLogMessage(self, title, msg, type):
+        group = AuthGroup.objects.get(group="Author")
+        profiles = Profile.objects.filter(permission=group)
+        print(group)
+        print(profiles)
+        now = datetime.now()
+        for profile in profiles:
+            message = MessageLog()
+            message.user = profile.user
+            message.time = now
+            message.title = title
+            message.log = msg
+            message.read = False
+            message.type = type
+            message.save()
+
+        # update warning count
+        if(type=="WARNING"):
+            self.countWarningMessage()
+    def countWarningMessage(self):
+        task = TaskStatus.objects.get(task_name="WARNING COUNT")
+        task.status = str(int(task.status)+1)
+        task.save()
