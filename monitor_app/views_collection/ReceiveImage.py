@@ -4,6 +4,7 @@ from ..models import *
 from datetime import datetime, date
 import json
 from termcolor import colored
+from django.utils.decorators import method_decorator
 
 import glob
 from os.path import dirname, basename, join
@@ -18,8 +19,8 @@ from .{0}.{1} import *\
 
 from django.views import View
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ReceiveImage(View):
-    @csrf_exempt
     def post(self, request):
         now = datetime.now()
         imgHandler = ImageHandler()
