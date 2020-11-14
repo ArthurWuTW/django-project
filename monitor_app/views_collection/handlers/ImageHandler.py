@@ -1,40 +1,42 @@
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from ..models import *
 from datetime import datetime, date
 import json
+from ...models import *
 from termcolor import colored
 
-@csrf_exempt
-def receiveImage(request):
+class ImageHandler():
+    def __init__(self):
+        self.raw_data = None
+        self.image = None
+        self.now = None
 
-    if request.method == 'POST':
+    def setNow(self, now):
+        self.now = now
 
+    def receiveEncodedRawData(self, request):
         received_data = json.loads(request.body.decode("utf-8"))
-
-        raw_data = received_data['image']
+        self.raw_data = received_data['image']
         # encoding decoding processing
-        raw_data = raw_data.encode("utf-8")
+        self.raw_data = raw_data.encode("utf-8")
         # print(raw_data)
 
+    def decodeRawDataToImage(self):
         import base64
         import numpy as np
         import cv2
 
-        imgString = base64.b64decode(raw_data)
+        imgString = base64.b64decode(self.raw_data)
         np_array = np.fromstring(imgString, np.uint8)
         # print(np_array)
 
-        image = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
-        # print(image)
+        self.image = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
 
-        now = datetime.now()
+    def updatePlantData(self):
         django_path = '../'
         image_dir = 'data_image/'
-        image_name = now.strftime("%Y_%m_%d_")+str(received_data['id'])+'.jpg'
-        cv2.imwrite(django_path+image_dir+image_name, image)
+        image_name = self.now.strftime("%Y_%m_%d_")+str(received_data['id'])+'.jpg'
+        cv2.imwrite(django_path+image_dir+image_name, self.image)
         print(colored('[VIEW LOG] receiveImage - Image saved.', 'yellow', attrs=['bold']))
-        # plant data
+
         if(PlantData.objects.filter(image_url=image_name).exists() == False):
             plant_data = PlantData()
             plant_data.aruco_id = received_data['id']
@@ -46,7 +48,3 @@ def receiveImage(request):
             plant_data.status = "N/A"
             plant_data.save()
             print(colored('[VIEW LOG] receiveImage - PlantData saved.', 'yellow', attrs=['bold']))
-
-        return HttpResponse(str(received_data))
-
-    return HttpResponse('Not post')
