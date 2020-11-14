@@ -34,7 +34,7 @@ urlpatterns = [
         views.Activate.as_view(),
         name='activate'),
     path('updateLogMessage',
-        views.updateLogMessage,
+        views.UpdateLogMessageView.as_view(),
         name='updateLogMessage'),
     path('writeLogMessage/<str:title>/<str:msg>/<str:type>',
         views.LogMessageCreatorView.as_view(),
