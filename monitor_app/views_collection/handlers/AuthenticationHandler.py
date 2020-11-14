@@ -28,9 +28,8 @@ class AuthenticationHandler(ModelDataHandler):
 
         if user and default_token_generator.check_token(user, token):
             profile = Profile.objects.get(user = user)
-            profile.activation = True
+            profile.activated = True
             profile.save()
-
         self.status = "Your account has been successfully activated!"
     def login(self, request):
         username = request.POST.get('email', '')
