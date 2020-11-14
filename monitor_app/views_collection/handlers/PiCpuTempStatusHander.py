@@ -16,3 +16,8 @@ class PiCpuTempStatusHander(ModelDataHandler):
         }
     def getTitle(self):
         return 'pi_cpu_temperature_data'
+
+    def updateStatusData(self, statusData):
+        task = TaskStatus.objects.get(task_name="PI CPU TEMPERATURE")
+        task.status = statusData
+        task.save()

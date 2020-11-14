@@ -16,3 +16,8 @@ class WateringStatusHander(ModelDataHandler):
         }
     def getTitle(self):
         return 'watering_status_data'
+
+    def updateStatusData(self, statusData):
+        task = TaskStatus.objects.get(task_name="WATERING STATUS")
+        task.status = statusData
+        task.save()

@@ -15,3 +15,8 @@ class CameraTaskStatusHander(ModelDataHandler):
         }
     def getTitle(self):
         return 'camera_task_data'
+
+    def updateStatusData(self, statusData):
+        task = TaskStatus.objects.get(task_name="CAMERA TASK")
+        task.status = statusData
+        task.save()
