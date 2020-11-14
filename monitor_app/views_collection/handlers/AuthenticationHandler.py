@@ -17,7 +17,42 @@ class AuthenticationHandler(ModelDataHandler):
         self.login_flag = False
         self.user_exits = False
         self.user_object_queryset_list = None
+        self.repeat_password_is_same = None
+        self.register_completed = False
+        self.email_is_same = None
+    def check_same_password(self, request):
+        password = request.POST.get('password', '')
+        repeat_password = request.POST.get('repeat_password', '')
+        if(password == repeat_password):
+            self.repeat_password_is_same = True
+        else:
+            self.repeat_password_is_same = False
+            self.status = 'Repeat Password is not the same as Password!'
+    def pwd_repeatPwd_is_same(self):
+        return self.repeat_password_is_same
+    def check_same_username(self, request):
+        email = request.POST.get('email', '')
+        if User.objects.filter(username=email).exists():
+            self.email_is_same = True
+        else:
+            self.email_is_same = False
+    def has_username_exists(self):
+        return self.email_is_same
+    def createUserAndProfile(self, request):
+        email = request.POST.get('email', '')
+        password = request.POST.get('password', '')
+        user = User.objects.create_user(username=email,
+                                        email=email,
+                                        password=password)
+        user.save()
+        profile = Profile()
+        profile.user = user
+        profile.activation = False
+        profile.save()
+        return user
+
     def activate(self, request, uid, token):
+        user = None
         uid = force_text(urlsafe_base64_decode(uid))
         try:
             user = User.objects.get(pk = uid)
@@ -57,3 +92,5 @@ class AuthenticationHandler(ModelDataHandler):
         return 'status_message'
     def has_loggedin(self):
         return self.login_flag
+    def updateStatus(self, status):
+        self.status = status
