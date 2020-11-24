@@ -24,7 +24,7 @@ class DashboardPageTest(TestCase):
         found = resolve('/')
         self.assertEqual(found.func.view_class, monitor_app.views_collection.Dashboard.Dashboard)
 
-    def test_home_page_returns_correct_html(self):
+    def test_dashboard_html_with_fake_data(self):
         piTempHandler = PiCpuTempStatusHander()
         piTempHandler.create_fake_data("1000c")
         wateringHandler = WateringStatusHander()
@@ -43,3 +43,4 @@ class DashboardPageTest(TestCase):
         self.assertIn(b'<span>DDone</span></div>', response.content)
         self.assertIn(b'<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">87%</div>', response.content)
         self.assertIn(b'<div class="h5 mb-0 font-weight-bold text-gray-800">1000</div>', response.content)
+        self.assertTrue(response.content.strip().endswith(b'</html>'))
