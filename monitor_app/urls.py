@@ -9,6 +9,9 @@ urlpatterns = [
     path('',
         views.Dashboard.as_view(),
         name='dashboard'),
+    path('reconstruction',
+        views.Reconstruction.as_view(),
+        name='reconstruction'),
     path('accounts/login/', # replace auth.accounts.login
         views.Login.as_view(),
         name='login'),
