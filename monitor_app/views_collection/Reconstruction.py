@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, date
 import json
 from django.contrib.auth.models import User
 from django.views import View
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 import glob
 from os.path import dirname, basename, join
@@ -17,6 +18,7 @@ from .{0}.{1} import *\
 
 class Reconstruction(View):
 
+    @xframe_options_sameorigin
     def get(self, request):
         contextHandler = ContextHandler()
         return render(self.request, 'template_opensfm/reconstruction.html', contextHandler.getContext())
