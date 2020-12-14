@@ -31,4 +31,4 @@ if __name__ == '__main__':
     commit_time = (datetime.now()+ timedelta(hours=8)).strftime('%Y-%m-%d-%H-%M')
     command = 'git commit -m "'+commit_time+'"'
     os.system(command)
-    os.system("git log --all --oneline --decorate --graph")
+    #os.system("git log --all --oneline --decorate --graph")

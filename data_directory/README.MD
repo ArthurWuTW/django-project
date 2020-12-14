@@ -3,12 +3,12 @@ Purpose:
 * to store the persistent database in this directory
 
 // Recommended
+1. Copy the Original PostgreSQL Data Directory: default data_directory is "/var/lib/postgresql/9.5/main"
+>> sudo rsync -av /var/lib/postgresql /<path>/django-project/data_directory
 
-/<path>/django_project/data_directory/postgresql
-has been mapping to /var/lib/postgresql
-in /<path>/docker-script/docker/project/run-container
+2. /<path>/django_project/data_directory/postgresql has been mapping to /var/lib/postgresql in /<path>/docker-script/docker/project/run-container
 
-
+3. add db directory mapping in docker container config file
 --------------run-container-------------
 ...
 DATABASE_OPTS="\
@@ -16,8 +16,6 @@ DATABASE_OPTS="\
 "
 ...
 ----------------------------------------
-
-
 
 
 // Deprecated

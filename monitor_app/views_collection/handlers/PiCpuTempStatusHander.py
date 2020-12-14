@@ -21,3 +21,9 @@ class PiCpuTempStatusHander(ModelDataHandler):
         task = TaskStatus.objects.get(task_name="PI CPU TEMPERATURE")
         task.status = statusData
         task.save()
+
+    def create_fake_data(self, status):
+        task = TaskStatus()
+        task.task_name = "PI CPU TEMPERATURE"
+        task.status = status
+        task.save()

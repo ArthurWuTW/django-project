@@ -20,14 +20,14 @@ from .{0}.{1} import *\
 from django.views import View
 
 @method_decorator(csrf_exempt, name='dispatch')
-class ReceiveImage(View):
+class Receive3dContructImage(View):
     def post(self, request):
         now = datetime.now()
         imgHandler = ImageHandler()
         imgHandler.setNow(now)
         imgHandler.receiveEncodedRawData(request)
         imgHandler.decodeRawDataToImage()
-        imgHandler.updatePlantData()
+        imgHandler.store3dContructImage()
 
         return HttpResponse('Succeed')
 

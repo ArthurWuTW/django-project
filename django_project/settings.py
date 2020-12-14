@@ -129,6 +129,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "data_image")
+    os.path.join(BASE_DIR, "data_image"),
+    # os.path.join(BASE_DIR, "data_3dConstruction_image"),
+    os.path.join(BASE_DIR, "data_3dConstruction_meshJson")
 ]
 print("STATICFILES_DIRS", STATICFILES_DIRS)
