@@ -14,6 +14,8 @@ A Django web app to visualize plant data and system status
 - Environment variables management with **[Docker](https://www.docker.com/)** in another repository
 - Email authentication for activating account and resetting forgot password as well
 - Configuration management
+- Field 3d reconstruction with **[OpenSfm](https://www.opensfm.org/)**
+- Frontend template with **[sb admin 2](https://github.com/StartBootstrap/startbootstrap-sb-admin-2)**
 
 ## Django Project Structure
 ```
@@ -58,9 +60,45 @@ django_project/
 └── test_script
 
 ```
-## Usage
+
+## Setup
+#### 1. Linux Environment
+See repository **[Django-docker-script](https://github.com/ArthurWuTW/django-docker-script)** and follow the instructions to install docker and create docker image.
+
+#### 2. Database
+Postgresql Database is saved as a persistent file(s) outside Docker. If you first setup the database, See **[README](https://github.com/ArthurWuTW/django-project/tree/master/data_directory)**, and if you have existed database, copy and paste into **[data_directory](https://github.com/ArthurWuTW/django-project/tree/master/data_directory)**
+
+#### 3. Configuration
+See directory **[secure_data](https://github.com/ArthurWuTW/django-project/tree/master/secure_data)**
+
+#### 4. Others
+- 3D Reconstruction App(OpenSfm)
+We need to create another Docker image for OpenSfm, See **[docker-script-opensfm](https://github.com/ArthurWuTW/docker-script-opensfm)** for Docker and **[OpenSfm custom fork](https://github.com/ArthurWuTW/OpenSfM)**
+
+- Hardware in Farmland
+DC motor, belt, DC power supply, L298N and Raspberry. Code run in raspberry pi is in **[HERE](https://github.com/ArthurWuTW/crawler-script)**
+
+## Run Server
+```sh
+# start container
+cd <DOCKER_REPO_DIR>/docker
+./project-start-container
+
+# enter container
+./project-enter-container-shell
+
+# run app
+cd <DJANGO_PROJECT_DIR>/script
+./start-project-server
+```
+
+## Extension
+
 #### 1. Create a new Class-based View
-> Every view class is written into a single file(.py) located in views_collection directory. The file name has to be the same as the name of view class. For example, there is a class named "ViewExample", and its file name must be ViewExample.py
+> In general, the code of Django View classes is written in file <strong><APP_DIR>/views.py</strong>, but as time goes by the code grows and becomes more and more complicated. In order to make the code clean, every class is written into a single file(.py) located in views_collection directory.
+
+The file name has to be the same as the name of view class. For example, there is a class named "ViewExample", and its file name must be ViewExample.py
+
 ```py
 from django.views import View
 class ViewsExample(View):
@@ -70,7 +108,7 @@ class ViewsExample(View):
         contextHandler.join(handler)
         contextHandler.fillInContext()
         return render(request, "XX.html", contextHandler.getContext())
-    def post(self, request)
+    def post(self, request):
         handler = Handler()
         contextHandler = ContextHandler()
         contextHandler.join(handler)
@@ -78,19 +116,19 @@ class ViewsExample(View):
         return render(request, "XX.html", contextHandler.getContext())
 ```
 #### 2. Create a new Data Handler
-> Data handler which wants to fill data into the Context has to inherit ModelDataHandler class and overwrite getData and getTitle methods.
+Data handler which wants to fill data into the Context has to inherit ModelDataHandler class and overwrite getData and getTitle methods.
 ```py
 # monitor_app/views_collection/handlers/ModelDataHandler.py
 import abc
 class ModelDataHandler(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def getData(self):
-        return NotImplemented 
+        return NotImplemented
     @abc.abstractmethod
     def getTitle(self):
         return NotImplemented
 ```
-> ContextHandler collects data handlers and generates a Context dictionary by their keys(title) and values(data).
+ContextHandler collects data handlers and generates a Context dictionary by their keys(title) and values(data).
 ```py
 # monitor_app/views_collection/handlers/ContextHandler.py
 class ContextHandler():
@@ -106,7 +144,8 @@ class ContextHandler():
         return self.context
 ```
 #### 3. Create a new Class-based Model
-> Every model class is written into a single file(.py) located in models_collection directory. The file name has to be the same as the name of model class. For example, there is a class named "ModelExample", and its file name must be ModelExample.py
+Every model class is written into a single file(.py) located in models_collection directory. The file name has to be the same as the name of model class. For example, there is a class named "ModelExample", and its file name must be ModelExample.py
+
 ```py
 from django.db import models
 class ModelExample(models.Model):
@@ -117,35 +156,3 @@ class ModelExample(models.Model):
     class Meta:
         verbose_name_plural = 'Model'
 ```
-## Server Setup
-#### 1. Database
-You'll need to:
-- Have a MySQL Database
-- Create database and table from the script: [migration/db.sql](migration/db.sql)
-#### 2. Request Youtube Data API keys
-The tutorial: https://developers.google.com/youtube/v3/getting-started
-#### 3. Create a .env file to set up your environment variables
-```
-# DB config
-DBCONFIG_USERNAME=root
-DBCONFIG_PASSWORD=password
-DBCONFIG_DATABASE=database_development
-DBCONFIG_HOST=127.0.0.1
-
-# Set up different Youtube Data API keys for fetching track data with different types
-FETCH_TOP100_KEY=<YOUR_API_KEY>
-FETCH_PSYTRANCE_KEY=<YOUR_API_KEY>
-
-# Scheduling to fetch data with cron format
-# Ex: Execute every 22:49
-FETCH_TOP100_CRONTIME=0 49 22 * * *
-FETCH_PSYTRANCE_CRONTIME=0 49 22 * * *
-```
-#### 4. Install
-```
-$ npm install
-$ npm run build
-$ npm run devstart
-```
-Wait for scheduling jobs finished.
-Then visit http://localhost:3000/beatport
