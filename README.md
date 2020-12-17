@@ -4,7 +4,7 @@ A Django web app to visualize plant data and system status
 
 > To realize automatic planting in our farmland, I decided to create an application to get the data and system status, and visualize them as well. This application provides a convenient way to manage the farmland remotely.
 
-![image](https://github.com/ArthurWuTW/django-project/blob/develop/readme_materials/1.png)
+![image](https://github.com/ArthurWuTW/django_project/blob/master/readme_materials/1.png)
 
 ## Features
 - **[Python](https://www.python.org/)** with **[Django](https://www.djangoproject.com/)** framework
