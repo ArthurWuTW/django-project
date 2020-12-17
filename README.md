@@ -14,6 +14,7 @@ A Django web app to visualize plant data and system status
 - Environment variables management with **[Docker](https://www.docker.com/)** in another repository
 - Email authentication for activating account and resetting forgot password as well
 - Configuration management
+- Database backup management
 - Field 3d reconstruction with **[OpenSfm](https://www.opensfm.org/)**
 - Frontend template with **[sb admin 2](https://github.com/StartBootstrap/startbootstrap-sb-admin-2)**
 
