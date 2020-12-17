@@ -74,13 +74,13 @@ See directory **[secure_data](https://github.com/ArthurWuTW/django-project/tree/
 
 #### 4. Others
 - 3D Reconstruction App(OpenSfm)
-We need to create another Docker image for OpenSfm, See **[docker-script-opensfm](https://github.com/ArthurWuTW/docker-script-opensfm)** for Docker and **[OpenSfm custom fork](https://github.com/ArthurWuTW/OpenSfM)**
+> We need to create another Docker image for OpenSfm, See **[docker-script-opensfm](https://github.com/ArthurWuTW/docker-script-opensfm)** for Docker and **[OpenSfm custom fork](https://github.com/ArthurWuTW/OpenSfM)**
 
 - Hardware in Farmland
-DC motor, belt, DC power supply, L298N and Raspberry. Code run in raspberry pi is in **[HERE](https://github.com/ArthurWuTW/crawler-script)**
+> DC motor, belt, DC power supply, L298N and Raspberry. Code run in raspberry pi is in **[HERE](https://github.com/ArthurWuTW/crawler-script)**
 
 - Local Backup Directory
-Create an empty directory with git init for database backup management
+> Create an empty directory with git init for database backup management
 
 ## Run Server
 ```sh
