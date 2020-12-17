@@ -79,6 +79,9 @@ We need to create another Docker image for OpenSfm, See **[docker-script-opensfm
 - Hardware in Farmland
 DC motor, belt, DC power supply, L298N and Raspberry. Code run in raspberry pi is in **[HERE](https://github.com/ArthurWuTW/crawler-script)**
 
+- Local Backup Directory
+Create an empty directory with git init for database backup management
+
 ## Run Server
 ```sh
 # start container
