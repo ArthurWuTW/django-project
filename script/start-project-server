@@ -3,4 +3,5 @@
 sudo service postgresql stop
 sudo service postgresql start
 python3 ../backup_thread.py &
-python3 ../manage.py runserver 0.0.0.0:8000
+#python3 ../manage.py runserver 0.0.0.0:8000
+gunicorn -c ../gunicorn_config/config.py django_project.wsgi
