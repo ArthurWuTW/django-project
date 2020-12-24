@@ -26,10 +26,12 @@ secure_data_loader = SecureDataLoader()
 SECRET_KEY = secure_data_loader.secure_data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-  secure_data_loader.secure_data['ALLOWED_HOSTS']
+  secure_data_loader.secure_data['ALLOWED_HOSTS'],
+  '172.17.0.2',
+  '220.133.21.76'
 ]
 
 # Application definition
@@ -135,3 +137,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "data_3dConstruction_meshJson")
 ]
 print("STATICFILES_DIRS", STATICFILES_DIRS)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
