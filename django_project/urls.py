@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('monitor_app.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+from .settings import ADMIN_ENABLED
+if ADMIN_ENABLED:
+    urlpatterns.append(path('admin/', admin.site.urls))

@@ -140,3 +140,5 @@ print("STATICFILES_DIRS", STATICFILES_DIRS)
 
 # WARNING Nginx don't have to handle static file anymore
 STATIC_ROOT = os.path.join(BASE_DIR, 'monitor_app', 'static')
+
+ADMIN_ENABLED = False
