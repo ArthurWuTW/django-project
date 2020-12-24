@@ -137,4 +137,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "data_3dConstruction_meshJson")
 ]
 print("STATICFILES_DIRS", STATICFILES_DIRS)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+
+# WARNING Nginx don't have to handle static file anymore
+STATIC_ROOT = os.path.join(BASE_DIR, 'monitor_app', 'static')
