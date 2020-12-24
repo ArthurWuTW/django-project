@@ -1,4 +1,4 @@
-let path = table_data['path'];
+let path = table_data['path']+"data_image/";
 function generateTableHead(table, data) {
   let thead = table.createTHead();
   let row = thead.insertRow();
