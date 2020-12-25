@@ -32,9 +32,11 @@ class ImageHandler():
         self.image = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
 
     def updatePlantData(self):
-        django_path = './' # monitor_app/
-        image_dir = 'static/data_image/'
+        django_path = '../' # original location: django_project/script
+        image_dir = 'monitor_app/static/data_image/'
         image_name = self.now.strftime("%Y_%m_%d_")+str(self.received_data['id'])+'.jpg'
+        print(self.image)
+
         cv2.imwrite(django_path+image_dir+image_name, self.image)
         print(colored('[VIEW LOG] receiveImage - Image saved.', 'yellow', attrs=['bold']))
 
@@ -51,8 +53,8 @@ class ImageHandler():
             print(colored('[VIEW LOG] receiveImage - PlantData saved.', 'yellow', attrs=['bold']))
 
     def store3dContructImage(self):
-        django_path = './'
-        image_dir = 'static/data_3dConstruction_image/'
+        django_path = '../' # original location: django_project/script
+        image_dir = 'monitor_app/static/data_3dConstruction_image/'
         image_name = self.now.strftime("%Y_%m_%d_")+str(self.received_data['id'])+'.jpg'
         cv2.imwrite(django_path+image_dir+image_name, self.image)
         print(colored('[VIEW LOG] store3dContructImage - Image saved.', 'yellow', attrs=['bold']))
