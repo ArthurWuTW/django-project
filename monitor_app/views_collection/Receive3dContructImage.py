@@ -25,7 +25,6 @@ class Receive3dContructImage(View):
     def post(self, request):
         secure_data_loader = SecureDataLoader()
         received_data = json.loads(request.body.decode("utf-8"))
-        print(received_data)
         if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
             now = datetime.now()
             imgHandler = ImageHandler()
