@@ -18,19 +18,25 @@ from .{0}.{1} import *\
     exec (import_script)
 
 from django.views import View
+from secure_data.secure_data_loader import SecureDataLoader
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ReceiveImage(View):
     def post(self, request):
-        now = datetime.now()
-        imgHandler = ImageHandler()
-        imgHandler.setNow(now)
-        imgHandler.receiveEncodedRawData(request)
-        imgHandler.decodeRawDataToImage()
-        imgHandler.updatePlantData()
+        secure_data_loader = SecureDataLoader()
+        received_data = json.loads(request.body.decode("utf-8"))
+        print(received_data)
+        if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
+            now = datetime.now()
+            imgHandler = ImageHandler()
+            imgHandler.setNow(now)
+            imgHandler.receiveEncodedRawData(request)
+            imgHandler.decodeRawDataToImage()
+            imgHandler.updatePlantData()
 
-        return HttpResponse('Succeed')
-
+            return HttpResponse('Succeed')
+        else:
+            return HttpResponse('wrong secret key')
 # @csrf_exempt
 # def receiveImage(request):
 #
