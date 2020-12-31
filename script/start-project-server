@@ -2,5 +2,8 @@
 ./make-migrations-and-migrate
 sudo service postgresql stop
 sudo service postgresql start
+cd .. && python3 manage.py test
+cd script
 python3 ../backup_thread.py &
-python3 ../manage.py runserver 172.17.0.2:8000 --insecure
+python3 ../manage.py runserver 172.17.0.2:8000
+# gunicorn -c ../gunicorn_config/config.py django_project.wsgi
