@@ -18,9 +18,24 @@ from .{0}.{1} import *\
     # print(import_script)
     exec (import_script)
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from secure_data.secure_data_loader import SecureDataLoader
+
+@method_decorator(csrf_exempt, name='dispatch')
 class LogMessageCreatorView(View):
     def get(self, request, title, msg, type):
         msgHandler = MessageCenterHandler(request)
         msgHandler.createAuthorLogMessage(title, msg, type)
 
         return HttpResponse('succeed')
+    def post(self, request):
+        secure_data_loader = SecureDataLoader()
+        received_data = json.loads(request.body.decode("utf-8"))
+        print(received_data)
+        if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
+            msgHandler = MessageCenterHandler(request)
+            msgHandler.createAuthorLogMessage(received_data['title'], received_data['msg'], received_data['type'])
+            return HttpRequest('succeed')
+        else:
+            return HttpRequest('wrong secret key')

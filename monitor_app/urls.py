@@ -42,7 +42,7 @@ urlpatterns = [
     path('updateLogMessage',
         views.UpdateLogMessageView.as_view(),
         name='updateLogMessage'),
-    path('writeLogMessage/<str:title>/<str:msg>/<str:type>',
+    path('writeLogMessage',
         views.LogMessageCreatorView.as_view(),
         name='writeLogMessage'),
     path('updateCameraTask/<str:status>',
