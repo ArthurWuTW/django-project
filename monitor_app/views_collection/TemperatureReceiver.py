@@ -27,6 +27,6 @@ class TemperatureReceiver(View):
         if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
             tempHandler = TemperatureHandler()
             status = tempHandler.insertData(received_data['temperature_string'])
-            return HttpRequest(status)
+            return HttpResponse(status)
         else:
-            return HttpRequest('wrong secret key')
+            return HttpResponse('wrong secret key')

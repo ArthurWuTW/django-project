@@ -36,6 +36,6 @@ class LogMessageCreatorView(View):
         if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
             msgHandler = MessageCenterHandler(request)
             msgHandler.createAuthorLogMessage(received_data['title'], received_data['msg'], received_data['type'])
-            return HttpRequest('succeed')
+            return HttpResponse('succeed')
         else:
-            return HttpRequest('wrong secret key')
+            return HttpResponse('wrong secret key')

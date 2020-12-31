@@ -31,6 +31,6 @@ class HumidityReceiver(View):
         if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
             humidHandler = HumidityHandler()
             status = humidHandler.insertData(received_data['humidity_string'])
-            return HttpRequest(status)
+            return HttpResponse(status)
         else:
-            return HttpRequest('wrong secret key')
+            return HttpResponse('wrong secret key')
