@@ -24,7 +24,7 @@ urlpatterns = [
     path('forgot_password',
         views.ForgotPassword.as_view(),
         name='forgot_password'),
-    path('temperature/<float:temp>',
+    path('temperature',
         views.TemperatureReceiver.as_view(),
         name='temperature'),
     path('humidity',

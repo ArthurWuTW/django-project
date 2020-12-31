@@ -14,9 +14,19 @@ from .{0}.{1} import *\
     exec (import_script)
 
 from django.views import View
+from secure_data.secure_data_loader import SecureDataLoader
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
+@method_decorator(csrf_exempt, name='dispatch')
 class TemperatureReceiver(View):
-    def get(self, request, temp):
-        tempHandler = TemperatureHandler()
-        status = tempHandler.insertData(temp)
-        return HttpResponse(status)
+    def post(self, request):
+        secure_data_loader = SecureDataLoader()
+        received_data = json.loads(request.body.decode("utf-8"))
+        print(received_data)
+        if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
+            tempHandler = TemperatureHandler()
+            status = tempHandler.insertData(received_data['temperature_string'])
+            return HttpRequest(status)
+        else:
+            return HttpRequest('wrong secret key')
