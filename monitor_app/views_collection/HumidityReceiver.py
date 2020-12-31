@@ -20,10 +20,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 @method_decorator(csrf_exempt, name='dispatch')
 class HumidityReceiver(View):
-    def get(self, request, humid):
-        humidHandler = HumidityHandler()
-        status = humidHandler.insertData(humid)
-        return HttpResponse(status)
     def post(self, request):
         secure_data_loader = SecureDataLoader()
         received_data = json.loads(request.body.decode("utf-8"))
