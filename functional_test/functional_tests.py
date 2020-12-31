@@ -9,7 +9,7 @@ class NewVisitorTest(unittest.TestCase):
   def tearDown(self): # after running test
     self.browser.quit()
   def test_can_start_a_list_and_retrieve_it_later(self): # any test starts with 'test_'
-    self.browser.get('http://10.1.1.2:8000')
+    self.browser.get('https://plantmonitor.mooo.com')
     self.assertIn("SB Admin 2 - Dashboard", self.browser.title)
 
 # __name__ is __main__ : that's how a Python script checks if it's been executed from the command
