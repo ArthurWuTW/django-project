@@ -33,7 +33,7 @@ class LogMessageCreatorView(View):
         secure_data_loader = SecureDataLoader()
         received_data = json.loads(request.body.decode("utf-8"))
         print(received_data)
-        if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
+        if('raspberry_secret_key' in received_data and received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
             msgHandler = MessageCenterHandler(request)
             msgHandler.createAuthorLogMessage(received_data['title'], received_data['msg'], received_data['type'])
             return HttpResponse('succeed')
