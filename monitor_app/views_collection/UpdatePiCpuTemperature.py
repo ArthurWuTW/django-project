@@ -13,10 +13,19 @@ from .{0}.{1} import *\
     exec (import_script)
 
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from secure_data.secure_data_loader import SecureDataLoader
 
+@method_decorator(csrf_exempt, name='dispatch')
 class UpdatePiCpuTemperature(View):
-    def get(self, request, status):
-        taskHandler = PiCpuTempStatusHander()
-        taskHandler.updateStatusData(status)
-
-        return HttpResponse('succeed')
+    def post(self, request):
+        secure_data_loader = SecureDataLoader()
+        received_data = json.loads(request.body.decode("utf-8"))
+        print(received_data)
+        if(received_data['raspberry_secret_key'] == secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']):
+            taskHandler = PiCpuTempStatusHander()
+            taskHandler.updateStatusData(received_data['status'])
+            return HttpResponse(status)
+        else:
+            return HttpResponse('wrong secret key')
