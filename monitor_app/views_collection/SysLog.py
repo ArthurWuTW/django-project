@@ -19,18 +19,25 @@ from .{0}.{1} import *\
 
 class SysLog(View):
     def get(self, request):
+        now = datetime.now()
+        threshold_timestamp = now - timedelta(hours=48)
 
         now = datetime.now()
+        connHandler = ConnectionHandler()
+        connHandler.setQueryServerName("Backup")
+        connHandler.setTimezoneShift(timedelta(hours=8))
+        connHandler.setThresholdTimestamp(threshold_timestamp)
 
-        plant_table = PlantTableHandler()
 
         messageHandler = MessageCenterHandler(self.request)
         messageHandler.setNow(now)
 
         contextHandler = ContextHandler()
-        contextHandler.join(plant_table)
         contextHandler.join(messageHandler)
+        contextHandler.join(connHandler)
 
         contextHandler.fillInContext()
+
+        print(contextHandler.getContext())
 
         return render(self.request, 'template_dashboard/sysLog.html', contextHandler.getContext())

@@ -66,5 +66,7 @@ urlpatterns = [
     path('sysLog',
         views.SysLog.as_view(),
         name='sysLog'),
-
+    path('connectionsNumReceiver',
+        views.ConnectionsNumReceiver.as_view(),
+        name='connectionsNumReceiver'),
 ]
