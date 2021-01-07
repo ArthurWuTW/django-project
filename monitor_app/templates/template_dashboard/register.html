@@ -57,6 +57,9 @@
                     <input type="password" name="repeat_password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" required>
                   </div>
                 </div>
+                <div class="form-group">
+                  <div class="g-recaptcha" data-sitekey="6LcoqCMaAAAAAE8Jc9EXrSLh6zJmoRtw735AnYVp"></div>
+                </div>
                 <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block">
 
                 <!-- <hr> -->
@@ -91,7 +94,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src={% static "dashboard/js/sb-admin-2.min.js" %}></script>
-
+  <script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 
 </html>

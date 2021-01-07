@@ -28,6 +28,8 @@ from .{0}.{1} import *\
     # print(import_script)
     exec (import_script)
 
+import requests
+
 class Register(View):
     @csrf_exempt
     def post(self, request):
@@ -43,26 +45,58 @@ class Register(View):
 
         authHandler.check_same_username(request)
         if not authHandler.has_username_exists():
-            user = authHandler.createUserAndProfile(request)
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': secure_data_loader.secure_data['RECAPTCHA_PRIVATE_KEY'],
+                'response': recaptcha_response
+            }
+            verify_rs = requests.get(url, params=values, verify=True)
+            verify_rs = verify_rs.json()
+            print(verify_rs)
+            ''' End reCAPTCHA validation '''
+            ''' Account length check start '''
+            email_check_flag = True
+            email_user = request.POST.get('email', '').split('@')
+            # TODO use regular expression
+            for substring in email_user:
+                if len(substring)>20:
+                    email_check_flag = False
+            if not email_user[0].isalnum():
+                email_check_flag = False
 
-            sender = MailSender()
-            sender.setSubject("Activate Account")
-            sender.setSmtpAccount(secure_data_loader.secure_data['SMTP_ACCOUNT'])
-            sender.setSendTo(user.email)
-            sender.setEmailTemplate("../templates/activation_email_template.txt")
-            sender.setConfig({
-                "email":user.email,
-                'domain':secure_data_loader.secure_data['DOMAIN'],
-                'site_name': 'Website',
-                "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                "user": user,
-                'token': default_token_generator.make_token(user),
-                'protocol': 'http',
-            })
-            sender.sendMail(secure_data_loader.secure_data['SMTP_ACCOUNT'], secure_data_loader.secure_data['SMTP_PASSWORD'])
-            authHandler.updateStatus("Please click on the that has just been sent to your email account to verify your email and continue the registration process.")
-            contextHandler.fillInContext()
-            return render(request, 'template_dashboard/message_template.html', contextHandler.getContext())
+            print("email", email_user)
+            ''' Account length check end '''
+
+            print("verify_rs['success']", verify_rs['success'], "email_check_flag", email_check_flag )
+            if verify_rs['success'] and email_check_flag:
+
+                user = authHandler.createUserAndProfile(request)
+
+                sender = MailSender()
+                sender.setSubject("Activate Account")
+                sender.setSmtpAccount(secure_data_loader.secure_data['SMTP_ACCOUNT'])
+                sender.setSendTo(user.email)
+                sender.setEmailTemplate("../templates/activation_email_template.txt")
+                sender.setConfig({
+                    "email":user.email,
+                    'domain':secure_data_loader.secure_data['DOMAIN'],
+                    'site_name': 'Website',
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "user": user,
+                    'token': default_token_generator.make_token(user),
+                    'protocol': 'https',
+                })
+                sender.sendMail(secure_data_loader.secure_data['SMTP_ACCOUNT'], secure_data_loader.secure_data['SMTP_PASSWORD'])
+                authHandler.updateStatus("Please click on the that has just been sent to your email account to verify your email and continue the registration process.")
+                contextHandler.fillInContext()
+                return render(request, 'template_dashboard/message_template.html', contextHandler.getContext())
+            else:
+                print("reCAPTCHA failed")
+                authHandler.updateStatus("reCAPTCHA failed")
+                contextHandler.fillInContext()
+                return render(request, 'template_dashboard/register.html', contextHandler.getContext())
         else:
             authHandler.updateStatus("The email already exists!")
             contextHandler.fillInContext()
