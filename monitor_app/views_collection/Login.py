@@ -23,12 +23,13 @@ class Login(View):
         return render(request, 'template_dashboard/login.html', context)
     def post(self, request):
         authHandler = AuthenticationHandler()
+        print(authHandler.has_loggedin)
         authHandler.login(request)
 
         contextHandler = ContextHandler()
         contextHandler.join(authHandler)
 
-        if(authHandler.has_loggedin):
+        if(authHandler.has_loggedin()):
             return redirect('/')
         else:
             contextHandler.fillInContext()
