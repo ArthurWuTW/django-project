@@ -47,7 +47,7 @@ class ForgotPassword(View):
                     "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                     "user": user,
                     'token': default_token_generator.make_token(user),
-                    'protocol': 'http',
+                    'protocol': 'https',
                 })
                 sender.sendMail(secure_data_loader.secure_data['SMTP_ACCOUNT'], secure_data_loader.secure_data['SMTP_PASSWORD'])
                 authHandler.updateStatus("Please click on the that has just been sent to your email account to change your password.")
@@ -56,6 +56,13 @@ class ForgotPassword(View):
                 contextHandler.join(authHandler)
                 contextHandler.fillInContext()
                 return render(request, 'template_dashboard/message_template.html', contextHandler.getContext())
+        else:
+            authHandler.updateStatus("Please click on the that has just been sent to your email account to change your password.")
+
+            contextHandler = ContextHandler()
+            contextHandler.join(authHandler)
+            contextHandler.fillInContext()
+            return render(request, 'template_dashboard/message_template.html', contextHandler.getContext())
     def get(self, request):
         if not request.user.is_authenticated:
             context = {}
