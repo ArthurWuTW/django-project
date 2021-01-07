@@ -27,6 +27,7 @@ SECRET_KEY = secure_data_loader.secure_data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+ADMIN_ENABLED = False
 
 ALLOWED_HOSTS = [
   secure_data_loader.secure_data['ALLOWED_HOSTS'],
@@ -141,4 +142,3 @@ print("STATICFILES_DIRS", STATICFILES_DIRS)
 # WARNING Nginx don't have to handle static file anymore
 STATIC_ROOT = os.path.join(BASE_DIR, 'monitor_app', 'static')
 
-ADMIN_ENABLED = False
