@@ -142,3 +142,7 @@ print("STATICFILES_DIRS", STATICFILES_DIRS)
 # WARNING Nginx don't have to handle static file anymore
 STATIC_ROOT = os.path.join(BASE_DIR, 'monitor_app', 'static')
 
+'''Fix Cookie without httpOnly flag'''
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_PATH = '/;HttpOnly'
+CSRF_COOKIE_HTTPONLY = True
