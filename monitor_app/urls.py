@@ -63,5 +63,8 @@ urlpatterns = [
     path('tables',
         views.Tables.as_view(),
         name='tables'),
+    path('sysLog',
+        views.SysLog.as_view(),
+        name='sysLog'),
 
 ]

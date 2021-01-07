@@ -53,7 +53,7 @@
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="tables">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
@@ -62,7 +62,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="sysLog">
           <i class="fas fa-fw fa-wrench"></i>
           <span>SysLog</span></a>
@@ -219,21 +219,46 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Tables</h1>
+            <h1 class="h3 mb-0 text-gray-800">Backup Server</h1>
           </div>
 
           <!-- Content Row -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Plant Table</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Backup Server</h6>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  </table>
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Number of Connections</h6>
+                  </div>
+                  <div class="card-body">
+                    asdfasdfdasf
+
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- Content Row -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Web Server</h6>
+                </div>
+                <div class="card-body">
+
+                </div>
+              </div>
+
+              <!-- Content Row -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Field Device(Raspberry)</h6>
+                  </div>
+                  <div class="card-body">
+                  </div>
+                </div>
 
           <!-- Content Row -->
         </div>
@@ -327,8 +352,6 @@
   <script src={% static "dashboard/vendor/chart.js/Chart.min.js" %}></script>
 
   <!-- Page level custom scripts -->
-  <script src={% static "dashboard/js/demo/plant-table-all-image.js" %}></script>
-  <script src={% static "dashboard/js/demo/click-image.js" %}></script>
   <script src={% static "dashboard/js/demo/new-red-message-number.js" %}></script>
   <script src={% static "dashboard/js/demo/click-msgCenter-event.js" %}></script>
 </body>
