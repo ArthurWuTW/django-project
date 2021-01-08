@@ -5,6 +5,7 @@ var chart = new Chart(ctx, {
         data: {
           labels: connections_data['timestamp_array'],
           datasets: [{
+            lineTension: 0, 
             label: 'Number of Connections',
             data: connections_data['connections_array'],
             backgroundColor: [
@@ -18,6 +19,9 @@ var chart = new Chart(ctx, {
           }]
         },
         options:{
+          elements: { point: { radius: 0 } },
+          tooltips: {enabled: false},
+          hover: {mode: null},
           maintainAspectRatio:false,
           legend:{
             display:false
