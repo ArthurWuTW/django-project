@@ -37,7 +37,5 @@ class SysLog(View):
         contextHandler.join(connHandler)
 
         contextHandler.fillInContext()
-
-        print(contextHandler.getContext())
-
+        
         return render(self.request, 'template_dashboard/sysLog.html', contextHandler.getContext())
