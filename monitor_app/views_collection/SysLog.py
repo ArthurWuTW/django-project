@@ -25,8 +25,15 @@ class SysLog(View):
         now = datetime.now()
         connHandler = ConnectionHandler()
         connHandler.setQueryServerName("Backup")
+        connHandler.setTitle("connections_data")
         connHandler.setTimezoneShift(timedelta(hours=8))
         connHandler.setThresholdTimestamp(threshold_timestamp)
+
+        connHandler_private_server = ConnectionHandler()
+        connHandler_private_server.setQueryServerName("PrivateServer")
+        connHandler_private_server.setTitle("connections_data_private_server")
+        connHandler_private_server.setTimezoneShift(timedelta(hours=8))
+        connHandler_private_server.setThresholdTimestamp(threshold_timestamp)
 
 
         messageHandler = MessageCenterHandler(self.request)
@@ -35,7 +42,7 @@ class SysLog(View):
         contextHandler = ContextHandler()
         contextHandler.join(messageHandler)
         contextHandler.join(connHandler)
-
+        contextHandler.join(connHandler_private_server)
         contextHandler.fillInContext()
-        
+
         return render(self.request, 'template_dashboard/sysLog.html', contextHandler.getContext())

@@ -231,10 +231,21 @@
                 <!-- insert one more card inside card -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Number of Connections</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Backup Container</h6>
                   </div>
                   <div class="card-body">
                     <canvas id="chart_connections"></canvas>
+
+                  </div>
+                </div>
+
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Ssh Container</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart_connections_private_server"></canvas>
 
                   </div>
                 </div>
@@ -329,6 +340,7 @@
   <!-- django data passed to javascript  -->
   <script>
     var connections_data = JSON.parse("{{connections_data | escapejs}}");
+    var connections_data_private_server = JSON.parse("{{connections_data_private_server | escapejs}}");
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
     messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
     var click_msgbell_count = 0;
@@ -347,6 +359,7 @@
   <!-- Custom scripts for all pages-->
   <script src={% static "dashboard/js/sb-admin-2.min.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-connections.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-connections-private-server.js" %}></script>
   <!-- Page level plugins -->
   <script src={% static "dashboard/vendor/chart.js/Chart.min.js" %}></script>
 
