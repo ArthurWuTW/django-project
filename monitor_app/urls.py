@@ -69,4 +69,7 @@ urlpatterns = [
     path('connectionsNumReceiver',
         views.ConnectionsNumReceiver.as_view(),
         name='connectionsNumReceiver'),
+    path('updateConnectionsView',
+        views.UpdateConnectionsView.as_view(),
+        name='updateConnectionsView'),
 ]

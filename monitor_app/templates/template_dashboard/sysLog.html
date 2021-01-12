@@ -343,6 +343,7 @@
     var connections_data_private_server = JSON.parse("{{connections_data_private_server | escapejs}}");
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
     messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
+    var update_connection_path = "{% url 'updateConnectionsView' %}";
     var click_msgbell_count = 0;
   </script>
 
