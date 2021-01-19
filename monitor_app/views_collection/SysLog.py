@@ -21,8 +21,6 @@ class SysLog(View):
     def get(self, request):
         now = datetime.now()
         threshold_timestamp = now - timedelta(hours=48)
-
-        now = datetime.now()
         connHandler = ConnectionHandler()
         connHandler.setQueryServerName("Backup")
         connHandler.setTitle("connections_data")
