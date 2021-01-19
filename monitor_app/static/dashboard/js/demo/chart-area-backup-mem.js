@@ -51,7 +51,7 @@ var chart4 = new Chart(ctx4, {
                   ticks:{
                     fontColor:'#858796',
                     padding:5,
-                    suggestedMin: -1,
+                    suggestedMin: 0,
                     suggestedMax: 5
                   }
                 }
@@ -119,7 +119,7 @@ setInterval(function(){
                       ticks:{
                         fontColor:'#858796',
                         padding:5,
-                        suggestedMin: -1,
+                        suggestedMin: 0,
                         suggestedMax: 5
                       }
                     }
