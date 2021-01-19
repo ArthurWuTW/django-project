@@ -45,6 +45,18 @@ class SysLog(View):
         connHandler_backup_mem.setTimezoneShift(timedelta(hours=8))
         connHandler_backup_mem.setThresholdTimestamp(threshold_timestamp)
 
+        connHandler_webserver_cpu = ConnectionHandler()
+        connHandler_webserver_cpu.setQueryServerName("WebServerCpuPercentage")
+        connHandler_webserver_cpu.setTitle("connections_data_webserver_cpu")
+        connHandler_webserver_cpu.setTimezoneShift(timedelta(hours=8))
+        connHandler_webserver_cpu.setThresholdTimestamp(threshold_timestamp)
+
+        connHandler_webserver_mem = ConnectionHandler()
+        connHandler_webserver_mem.setQueryServerName("WebServerMemPercentage")
+        connHandler_webserver_mem.setTitle("connections_data_webserver_mem")
+        connHandler_webserver_mem.setTimezoneShift(timedelta(hours=8))
+        connHandler_webserver_mem.setThresholdTimestamp(threshold_timestamp)
+
 
 
         messageHandler = MessageCenterHandler(self.request)
@@ -56,6 +68,8 @@ class SysLog(View):
         contextHandler.join(connHandler_private_server)
         contextHandler.join(connHandler_backup_cpu)
         contextHandler.join(connHandler_backup_mem)
+        contextHandler.join(connHandler_webserver_cpu)
+        contextHandler.join(connHandler_webserver_mem)
         contextHandler.fillInContext()
 
         return render(self.request, 'template_dashboard/sysLog.html', contextHandler.getContext())

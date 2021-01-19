@@ -205,6 +205,9 @@
 
 
 
+
+
+
               </div>
             </div>
 
@@ -214,6 +217,28 @@
                   <h6 class="m-0 font-weight-bold text-primary">Web Server</h6>
                 </div>
                 <div class="card-body">
+
+                  <!-- insert one more card inside card -->
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Percentage of Cpu Usage</h6>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart_webserver_cpu"></canvas>
+
+                    </div>
+                  </div>
+
+                  <!-- insert one more card inside card -->
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Percentage of Memory Usage</h6>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart_webserver_mem"></canvas>
+
+                    </div>
+                  </div>
 
                 </div>
               </div>
@@ -299,6 +324,8 @@
     var connections_data_private_server = JSON.parse("{{connections_data_private_server | escapejs}}");
     var connections_data_backup_cpu = JSON.parse("{{connections_data_backup_cpu | escapejs}}");
     var connections_data_backup_mem = JSON.parse("{{connections_data_backup_mem | escapejs}}");
+    var connections_data_webserver_cpu = JSON.parse("{{connections_data_webserver_cpu | escapejs}}");
+    var connections_data_webserver_mem = JSON.parse("{{connections_data_webserver_mem | escapejs}}");
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
     messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
     var update_connection_path = "{% url 'updateConnectionsView' %}";
@@ -321,6 +348,8 @@
   <script src={% static "dashboard/js/demo/chart-area-connections-private-server.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-backup-cpu.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-backup-mem.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-webserver-cpu.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-webserver-mem.js" %}></script>
   <!-- Page level plugins -->
   <script src={% static "dashboard/vendor/chart.js/Chart.min.js" %}></script>
 
