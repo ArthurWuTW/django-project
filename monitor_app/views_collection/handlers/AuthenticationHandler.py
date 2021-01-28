@@ -51,7 +51,32 @@ class AuthenticationHandler(ModelDataHandler):
         profile.save()
         return user
 
-    def activate(self, request, uid, token):
+    def resetPassword(self, request, uid, token):
+        new_password = request.POST.get('password', '')
+        user = None
+        uid = force_text(urlsafe_base64_decode(uid))
+        try:
+            user = User.objects.get(pk = uid)
+        except User.DoesNotExist:
+            user = None
+        if user and default_token_generator.check_token(user, token):
+            user.set_password(new_password)
+            user.save()
+
+    def checkUidToken(self, uid, token):
+        user = None
+        uid = force_text(urlsafe_base64_decode(uid))
+        try:
+            user = User.objects.get(pk=uid)
+        except User.DoesNotExist:
+            user = None
+            ERROR("activate.py : User does not exist!")
+        if user and default_token_generator.check_token(user, token):
+            return True
+        else:
+            return False
+
+    def activate(self, uid, token):
         user = None
         uid = force_text(urlsafe_base64_decode(uid))
         try:
