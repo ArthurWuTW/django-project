@@ -50,19 +50,22 @@
       </li>
 
       <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
+      <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="tables">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <li class="nav-item">
+        <a class="nav-link" href="sysLog">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>SysLog</span></a>
       </li>
 
       <!-- Divider -->
@@ -545,9 +548,7 @@
   <script>
     var temp_data = JSON.parse("{{temp_data | escapejs}}");
     var humid_data = JSON.parse("{{humid_data | escapejs}}");
-    var table_data = JSON.parse("{{plants_data | escapejs}}");
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
-    table_data['path'] = '{% static "" %}';
     messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
     var click_msgbell_count = 0;
   </script>

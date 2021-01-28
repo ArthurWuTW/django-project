@@ -53,7 +53,7 @@
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="tables">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
@@ -62,7 +62,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="sysLog">
           <i class="fas fa-fw fa-wrench"></i>
           <span>SysLog</span></a>
@@ -93,40 +93,8 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group"> -->
-              <!-- <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div> -->
-            <!-- </div>
-          </form> -->
-
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <!-- <li class="nav-item dropdown no-arrow d-sm-none"> -->
-              <!-- <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a> -->
-              <!-- Dropdown - Messages -->
-              <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown"> -->
-                <!-- <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form> -->
-              <!-- </div> -->
-            <!-- </li> -->
 
             {% if request.user.is_authenticated %}
 
@@ -134,48 +102,11 @@
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" onclick="clickCount()" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <!-- <span class="badge badge-danger badge-counter">3+</span> -->
+
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown" id="messageCenter">
-                <!-- <h6 class="dropdown-header">
-                  Alerts Center
-                </h6> -->
-                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a> -->
-                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a> -->
-                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a> -->
-                <!-- <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> -->
+
               </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -219,21 +150,107 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Tables</h1>
+            <h1 class="h3 mb-0 text-gray-800">SysLog</h1>
           </div>
 
           <!-- Content Row -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Plant Table</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Backup Server</h6>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  </table>
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Number of Connections(Backup Container)</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart_connections"></canvas>
+
+                  </div>
                 </div>
+
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Number of Connections(Private Container)</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart_connections_private_server"></canvas>
+
+                  </div>
+                </div>
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Percentage of CPU Usage</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart_backup_cpu"></canvas>
+
+                  </div>
+                </div>
+
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Percentage of Memory Usage</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart_backup_mem"></canvas>
+
+                  </div>
+                </div>
+
+
+
+
+
+
+
               </div>
             </div>
+
+            <!-- Content Row -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Web Server</h6>
+                </div>
+                <div class="card-body">
+
+                  <!-- insert one more card inside card -->
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Percentage of Cpu Usage</h6>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart_webserver_cpu"></canvas>
+
+                    </div>
+                  </div>
+
+                  <!-- insert one more card inside card -->
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Percentage of Memory Usage</h6>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="chart_webserver_mem"></canvas>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Content Row -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Field Device(Raspberry)</h6>
+                  </div>
+                  <div class="card-body">
+                  </div>
+                </div>
 
           <!-- Content Row -->
         </div>
@@ -303,10 +320,15 @@
 
   <!-- django data passed to javascript  -->
   <script>
-    var table_data = JSON.parse("{{plant_table | escapejs}}");
+    var connections_data = JSON.parse("{{connections_data | escapejs}}");
+    var connections_data_private_server = JSON.parse("{{connections_data_private_server | escapejs}}");
+    var connections_data_backup_cpu = JSON.parse("{{connections_data_backup_cpu | escapejs}}");
+    var connections_data_backup_mem = JSON.parse("{{connections_data_backup_mem | escapejs}}");
+    var connections_data_webserver_cpu = JSON.parse("{{connections_data_webserver_cpu | escapejs}}");
+    var connections_data_webserver_mem = JSON.parse("{{connections_data_webserver_mem | escapejs}}");
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
-    table_data['path'] = '{% static "" %}';
     messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
+    var update_connection_path = "{% url 'updateConnectionsView' %}";
     var click_msgbell_count = 0;
   </script>
 
@@ -322,13 +344,16 @@
 
   <!-- Custom scripts for all pages-->
   <script src={% static "dashboard/js/sb-admin-2.min.js" %}></script>
-
+  <script src={% static "dashboard/js/demo/chart-area-connections.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-connections-private-server.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-backup-cpu.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-backup-mem.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-webserver-cpu.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-webserver-mem.js" %}></script>
   <!-- Page level plugins -->
   <script src={% static "dashboard/vendor/chart.js/Chart.min.js" %}></script>
 
   <!-- Page level custom scripts -->
-  <script src={% static "dashboard/js/demo/plant-table-all-image.js" %}></script>
-  <script src={% static "dashboard/js/demo/click-image.js" %}></script>
   <script src={% static "dashboard/js/demo/new-red-message-number.js" %}></script>
   <script src={% static "dashboard/js/demo/click-msgCenter-event.js" %}></script>
 </body>
