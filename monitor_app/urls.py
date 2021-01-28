@@ -72,4 +72,7 @@ urlpatterns = [
     path('updateConnectionsView',
         views.UpdateConnectionsView.as_view(),
         name='updateConnectionsView'),
+    path('resetPassword/<str:username>/<str:token>',
+        views.ResetPassword.as_view(),
+        name='resetPassword'),
 ]
