@@ -1,0 +1,56 @@
+/* body color #4e73df */
+/* card color #4e73df */
+
+body{
+  background-color: #4e73df;
+}
+
+.card{
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-top: 3rem;
+}
+
+.text-align-center{
+  text-align: center;
+}
+
+.row{
+  justify-content: center;
+}
+
+.custom-image{
+  max-width: 100%;
+  height: 400px;
+}
+
+.google-font{
+  font-family: 'ABeeZee';
+  font-size: 22px;
+}
+
+.custom-textbox{
+  margin-top: 0.9rem;
+  border-radius: 40px;
+  border:1px solid #aaa;
+  padding: 13px;
+  font-size:10px;
+  width: 300px;
+}
+
+.custom-btn{
+  background-color:#4e73df;
+  padding: 10px;
+  border-radius: 40px;
+  font-size: 13px;
+  width:300px;
+  border: 1px solid The #aaa;
+
+
+}
+
+.error-text{
+  color: red;
+  font-size: 15px;
+  text-align: center;
+}
