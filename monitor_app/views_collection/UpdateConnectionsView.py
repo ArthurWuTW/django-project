@@ -32,6 +32,4 @@ class UpdateConnectionsView(View):
         contextHandler = ContextHandler()
         contextHandler.join(connHandler)
         contextHandler.fillInContext()
-        print(server_name)
-        print("~~~~~~~~~~~")
         return JsonResponse(contextHandler.getContext())
