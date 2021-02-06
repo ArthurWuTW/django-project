@@ -20,7 +20,7 @@ class ConnectionHandler(ModelDataHandler):
         self.threshold_timestamp = datetimeObject
         print(self.threshold_timestamp)
     def getData(self): #override
-        conns = Connections.objects.filter(time__gte=(self.threshold_timestamp), server_name=self.server_name)
+        conns = Connections.objects.filter(time__gte=(self.threshold_timestamp), server_name=self.server_name).order_by('time')
         data = dict()
         data['timestamp_array'] = [(conn.time + self.timezone_shift).strftime('%m/%d %H:%M') for conn in conns]
         data['connections_array'] = [conn.number for conn in conns]
