@@ -5,5 +5,5 @@ sudo service postgresql start
 cd .. && python3 manage.py test
 cd script
 python3 ../backup_thread.py &
-python3 ../manage.py runserver 172.17.0.2:8000 --insecure
-# gunicorn -c ../gunicorn_config/config.py django_project.wsgi
+# python3 ../manage.py runserver 172.17.0.2:8000 --insecure
+gunicorn -c ../gunicorn_config/config.py django_project.wsgi
