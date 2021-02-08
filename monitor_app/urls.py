@@ -78,4 +78,7 @@ urlpatterns = [
     path('testFunction',
         views.TestFunction.as_view(),
         name='testFunction'),
+    path('updateCache',
+        views.UpdateCache.as_view(),
+        name='updateCache'),
 ]
