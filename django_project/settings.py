@@ -26,7 +26,7 @@ secure_data_loader = SecureDataLoader()
 SECRET_KEY = secure_data_loader.secure_data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = eval(os.getenv('DEBUG_MODE'))
 ADMIN_ENABLED = False
 
 ALLOWED_HOSTS = [
