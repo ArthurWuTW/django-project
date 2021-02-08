@@ -11,6 +11,8 @@ class ConnectionHandler(ModelDataHandler):
         self.threshold_timestamp = None
         self.server_name = None
         self.title = ""
+        self.useCacheFlag = False
+        self.cache = None
     def setQueryServerName(self, server_name):
         self.server_name = server_name
     def setTimezoneShift(self, timedeltaObject):
@@ -20,11 +22,14 @@ class ConnectionHandler(ModelDataHandler):
         self.threshold_timestamp = datetimeObject
         print(self.threshold_timestamp)
     def getData(self): #override
-        conns = Connections.objects.filter(time__gte=(self.threshold_timestamp), server_name=self.server_name).order_by('time')
-        data = dict()
-        data['timestamp_array'] = [(conn.time + self.timezone_shift).strftime('%m/%d %H:%M') for conn in conns]
-        data['connections_array'] = [conn.number for conn in conns]
-        return json.dumps(data)
+        if self.useCacheFlag:
+            return self.cache.get(self.title) # dumped-json
+        else:
+            conns = Connections.objects.filter(time__gte=(self.threshold_timestamp), server_name=self.server_name).order_by('time')
+            data = dict()
+            data['timestamp_array'] = [(conn.time + self.timezone_shift).strftime('%m/%d %H:%M') for conn in conns]
+            data['connections_array'] = [conn.number for conn in conns]
+            return json.dumps(data)
     def setTitle(self, name):
         self.title = name
     def getTitle(self): #override
@@ -38,3 +43,12 @@ class ConnectionHandler(ModelDataHandler):
         data.time = datetime.now()
         data.save()
         return 'succeed'
+    def writeCacheData(self, cache):
+        conns = Connections.objects.filter(time__gte=(self.threshold_timestamp), server_name=self.server_name).order_by('time')
+        data = dict()
+        data['timestamp_array'] = [(conn.time + self.timezone_shift).strftime('%m/%d %H:%M') for conn in conns]
+        data['connections_array'] = [conn.number for conn in conns]
+        cache.set(self.title, json.dumps(data))
+    def useCacheData(self, cache):
+        self.useCacheFlag = True
+        self.cache = cache
