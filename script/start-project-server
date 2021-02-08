@@ -3,10 +3,13 @@ export DEBUG_MODE=False
 echo '===DEBUG MODE===='
 echo $DEBUG_MODE
 echo '================='
+sudo /etc/init.d/redis-server stop
+sudo /etc/init.d/redis-server start
 ./make-migrations-and-migrate
 sudo service postgresql stop
 sudo service postgresql start
 cd .. && python3 manage.py test
 cd script
 python3 ../backup_thread.py &
+python3 ../updateCache_thread.py &
 gunicorn -c ../gunicorn_config/config.py django_project.wsgi
