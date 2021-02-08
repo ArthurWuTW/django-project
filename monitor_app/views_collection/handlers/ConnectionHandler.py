@@ -22,7 +22,7 @@ class ConnectionHandler(ModelDataHandler):
         self.threshold_timestamp = datetimeObject
         print(self.threshold_timestamp)
     def getData(self): #override
-        if self.useCacheFlag:
+        if self.useCacheFlag and self.cache.get(self.title):
             return self.cache.get(self.title) # dumped-json
         else:
             conns = Connections.objects.filter(time__gte=(self.threshold_timestamp), server_name=self.server_name).order_by('time')
