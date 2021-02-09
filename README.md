@@ -5,6 +5,8 @@ A Django web app to visualize plant data and system status
 > To realize automatic planting in our farmland, I decided to create an application to get the data and system status, and visualize them as well. This application provides a convenient way to manage the farmland remotely.
 
 ![image](https://github.com/ArthurWuTW/django_project/blob/master/readme_materials/1.png)
+![image](https://github.com/ArthurWuTW/django_project/blob/master/readme_materials/5.png)
+![image](https://github.com/ArthurWuTW/django_project/blob/master/readme_materials/4.png)
 
 ## Features
 - **[Python](https://www.python.org/)** with **[Django](https://www.djangoproject.com/)** framework
@@ -17,6 +19,12 @@ A Django web app to visualize plant data and system status
 - Database backup management
 - Field 3d reconstruction with **[OpenSfm](https://www.opensfm.org/)**
 - Frontend template with **[sb admin 2](https://github.com/StartBootstrap/startbootstrap-sb-admin-2)**
+- Cache with **[Redis](https://redis.io/)**
+- Web server gateway interface with **[Gunicorn](https://gunicorn.org/)**
+- Reverse proxy server with **[Nginx](https://nginx.org/en/)**
+- SSL certificate with **[Let's encrypt](https://letsencrypt.org/)**
+- Penetration testing using **[OWASP ZAP](https://owasp.org/)**
+- DNS hosting using **[FreeDNS](https://freedns.afraid.org/)**
 
 ## Django Project Structure
 ```
