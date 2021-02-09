@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export DEBUG_MODE=False
+export DEBUG_MODE=True
 echo '===DEBUG MODE===='
 echo $DEBUG_MODE
 echo '================='
@@ -12,4 +12,4 @@ cd .. && python3 manage.py test
 cd script
 python3 ../backup_thread.py &
 python3 ../updateCache_thread.py &
-gunicorn -c ../gunicorn_config/config.py django_project.wsgi
+python3 ../manage.py runserver 172.17.0.2:8000 --insecure

@@ -26,7 +26,7 @@ secure_data_loader = SecureDataLoader()
 SECRET_KEY = secure_data_loader.secure_data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = eval(os.getenv('DEBUG_MODE'))
 ADMIN_ENABLED = False
 
 ALLOWED_HOSTS = [
@@ -44,19 +44,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'bootstrap4',
     'monitor_app'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -94,6 +95,16 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -127,20 +138,24 @@ USE_L10N = True
 
 USE_TZ = True
 
+INTERNAL_IPS = [
+    '172.17.0.1',
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "data_image"),
-    # os.path.join(BASE_DIR, "data_3dConstruction_image"),
-    os.path.join(BASE_DIR, "data_3dConstruction_meshJson")
-]
-print("STATICFILES_DIRS", STATICFILES_DIRS)
-
-# WARNING Nginx don't have to handle static file anymore
-STATIC_ROOT = os.path.join(BASE_DIR, 'monitor_app', 'static')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "data_image"),
+#     # os.path.join(BASE_DIR, "data_3dConstruction_image"),
+#     os.path.join(BASE_DIR, "data_3dConstruction_meshJson")
+# ]
+# print("STATICFILES_DIRS", STATICFILES_DIRS)
+#
+# # WARNING Nginx don't have to handle static file anymore
+# STATIC_ROOT = os.path.join(BASE_DIR, 'monitor_app', 'static')
 
 '''Fix Cookie without httpOnly flag'''
 SESSION_COOKIE_HTTPONLY = True
