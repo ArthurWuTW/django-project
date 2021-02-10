@@ -64,6 +64,20 @@ class SysLog(View):
         connHandler_webserver_mem.setThresholdTimestamp(threshold_timestamp)
         connHandler_webserver_mem.useCacheData(cache)
 
+        connHandler_private_server_ssh_failed = ConnectionHandler()
+        connHandler_private_server_ssh_failed.setQueryServerName("PrivateServerSshFailed")
+        connHandler_private_server_ssh_failed.setTitle("connections_data_private_server_ssh_failed")
+        connHandler_private_server_ssh_failed.setTimezoneShift(timedelta(hours=8))
+        connHandler_private_server_ssh_failed.setThresholdTimestamp(threshold_timestamp)
+        connHandler_private_server_ssh_failed.useCacheData(cache)
+
+        connHandler_private_server_ssh_banned = ConnectionHandler()
+        connHandler_private_server_ssh_banned.setQueryServerName("PrivateServerSshBanned")
+        connHandler_private_server_ssh_banned.setTitle("connections_data_private_server_ssh_banned")
+        connHandler_private_server_ssh_banned.setTimezoneShift(timedelta(hours=8))
+        connHandler_private_server_ssh_banned.setThresholdTimestamp(threshold_timestamp)
+        connHandler_private_server_ssh_banned.useCacheData(cache)
+
 
 
         messageHandler = MessageCenterHandler(self.request)
@@ -77,6 +91,8 @@ class SysLog(View):
         contextHandler.join(connHandler_backup_mem)
         contextHandler.join(connHandler_webserver_cpu)
         contextHandler.join(connHandler_webserver_mem)
+        contextHandler.join(connHandler_private_server_ssh_failed)
+        contextHandler.join(connHandler_private_server_ssh_banned)
         contextHandler.fillInContext()
 
         return render(self.request, 'template_dashboard/sysLog.html', contextHandler.getContext())

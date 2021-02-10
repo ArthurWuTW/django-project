@@ -71,6 +71,20 @@ class UpdateCache(View):
             connHandler_webserver_mem.setThresholdTimestamp(threshold_timestamp)
             connHandler_webserver_mem.writeCacheData(cache)
 
+            connHandler_private_server_ssh_failed = ConnectionHandler()
+            connHandler_private_server_ssh_failed.setQueryServerName("PrivateServerSshFailed")
+            connHandler_private_server_ssh_failed.setTitle("connections_data_private_server_ssh_failed")
+            connHandler_private_server_ssh_failed.setTimezoneShift(timedelta(hours=8))
+            connHandler_private_server_ssh_failed.setThresholdTimestamp(threshold_timestamp)
+            connHandler_private_server_ssh_failed.writeCacheData(cache)
+
+            connHandler_private_server_ssh_banned = ConnectionHandler()
+            connHandler_private_server_ssh_banned.setQueryServerName("PrivateServerSshBanned")
+            connHandler_private_server_ssh_banned.setTitle("connections_data_private_server_ssh_banned")
+            connHandler_private_server_ssh_banned.setTimezoneShift(timedelta(hours=8))
+            connHandler_private_server_ssh_banned.setThresholdTimestamp(threshold_timestamp)
+            connHandler_private_server_ssh_banned.writeCacheData(cache)
+
 
             return HttpResponse('Conn Data Cache Updated!')
         else:

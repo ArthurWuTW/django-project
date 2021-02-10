@@ -212,6 +212,29 @@
 
                   </div>
                 </div>
+
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Failed Ssh Password Attempts(Private Container)</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart_connections_private_server_ssh_failed"></canvas>
+
+                  </div>
+                </div>
+
+                <!-- insert one more card inside card -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Number of Banned IPs(Private Container)</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chart_connections_private_server_ssh_banned"></canvas>
+
+                  </div>
+                </div>
+
                 <!-- insert one more card inside card -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
@@ -328,6 +351,8 @@
     var connections_data_backup_mem = JSON.parse("{{connections_data_backup_mem | escapejs}}");
     var connections_data_webserver_cpu = JSON.parse("{{connections_data_webserver_cpu | escapejs}}");
     var connections_data_webserver_mem = JSON.parse("{{connections_data_webserver_mem | escapejs}}");
+    var connections_data_private_server_ssh_failed = JSON.parse("{{connections_data_private_server_ssh_failed | escapejs}}");
+    var connections_data_private_server_ssh_banned = JSON.parse("{{connections_data_private_server_ssh_banned | escapejs}}");
     var messagelog_data = JSON.parse("{{messagelog_data | escapejs}}");
     messagelog_data['update_message_path'] = "{% url 'updateLogMessage' %}";
     var update_connection_path = "{% url 'updateConnectionsView' %}";
@@ -348,6 +373,8 @@
   <script src={% static "dashboard/js/sb-admin-2.min.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-connections.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-connections-private-server.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-connections-private-server-ssh-failed.js" %}></script>
+  <script src={% static "dashboard/js/demo/chart-area-connections-private-server-ssh-banned.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-backup-cpu.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-backup-mem.js" %}></script>
   <script src={% static "dashboard/js/demo/chart-area-webserver-cpu.js" %}></script>
