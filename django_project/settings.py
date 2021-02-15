@@ -90,8 +90,8 @@ DATABASES = {
         'NAME': 'myproject',
         'USER': secure_data_loader.secure_data["DATABASE_USER"],
         'PASSWORD': secure_data_loader.secure_data["DATABASE_PASSWORD"],
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '10.1.1.2',
+        'PORT': '2645',
     }
 }
 
