@@ -17,10 +17,10 @@ class ConnectionHandler(ModelDataHandler):
         self.server_name = server_name
     def setTimezoneShift(self, timedeltaObject):
         self.timezone_shift = timedeltaObject
-        print(self.timezone_shift)
+        # print(self.timezone_shift)
     def setThresholdTimestamp(self, datetimeObject):
         self.threshold_timestamp = datetimeObject
-        print(self.threshold_timestamp)
+        # print(self.threshold_timestamp)
     def getData(self): #override
         if self.useCacheFlag and self.cache.get(self.title):
             return self.cache.get(self.title) # dumped-json
