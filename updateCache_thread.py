@@ -28,7 +28,7 @@ def job():
             'raspberry_secret_key':  secure_data_loader.secure_data['RASPBERRY_SECRET_KEY']
         }
         headers = {'content-type': 'application/json'}
-        r = requests.post("https://plantmonitor.mooo.com/updateCache", data=json.dumps(data), headers=headers)
+        r = requests.post("http://10.1.1.2:5554/updateCache", data=json.dumps(data), headers=headers)
         print(colored('[Cache LOG] UpdateCache process finished', 'blue', attrs=['bold']))
         time.sleep(60)
 if __name__ == '__main__':
