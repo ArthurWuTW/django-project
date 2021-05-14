@@ -17,7 +17,7 @@ Delete the line
 
 ```
 in **[django-docker-script/docker/project/run-container](https://github.com/ArthurWuTW/django-docker-script/blob/master/docker/project/run-container)**, start container and then enter the container shell
-> We need to disable docker volume mapping or database files will be replaced with empty directory(data_directory should have nothing at this moment)
+> We need to disable docker volume mapping otherwise database files will be replaced with empty directory(data_directory should have nothing at this moment)
 
 #### 2. Inside container, run the command below to copy the original Postgresql data files to this directory
 
